@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mentions Légales - Nathan Soulé</title>
+    
+    <link rel="icon" type="image/jpeg" href="favicon.jpg">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&family=Orbitron:wght@400;500;600;700;800;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            cyan: '#00EAFF',
+                            purple: '#A837D6',
+                            dark: '#072B37',
+                            bg: '#000000',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Rajdhani', 'sans-serif'],
+                        heading: ['Orbitron', 'sans-serif'],
+                        share: ['"Share Tech Mono"', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        body {
+            background-color: #000000;
+            overflow-x: hidden;
+            margin: 0;
+            padding: 0;
+            color: #E5E7EB;
+        }
+
+        .scanlines {
+            background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0) 50%, rgba(0,234,255,0.02) 50%, rgba(0,234,255,0.02));
+            background-size: 100% 4px;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .cyber-panel {
+            background-color: rgba(7, 43, 55, 0.4); 
+            border: 1px solid rgba(0, 234, 255, 0.2);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .cyber-divider { 
+            height: 1px; 
+            width: 100%; 
+            background: linear-gradient(90deg, transparent, rgba(0, 234, 255, 0.6), transparent); 
+        }
+
+        @keyframes scrollMarqueeLeft { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+        .marquee-container-left { display: flex; width: max-content; will-change: transform; animation: scrollMarqueeLeft 60s linear infinite; }
+
+        .nav-link { position: relative; display: inline-block; transition: all 0.3s ease; padding: 0 4px; }
+        .nav-link::before { content: '['; position: absolute; left: 10px; opacity: 0; color: #00EAFF; font-family: 'Share Tech Mono', monospace; font-weight: bold; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        .nav-link::after { content: ']'; position: absolute; right: 10px; opacity: 0; color: #00EAFF; font-family: 'Share Tech Mono', monospace; font-weight: bold; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        .nav-link:hover::before { left: -15px; opacity: 1; }
+        .nav-link:hover::after { right: -15px; opacity: 1; }
+        .nav-link:hover { color: #00EAFF !important; text-shadow: 0 0 10px rgba(0, 234, 255, 0.6); }
+
+        .hide-native-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-native-scrollbar { -ms-overflow-style: none; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+
+        h2, h3 {
+            text-shadow: 0 0 10px rgba(0, 234, 255, 0.2);
+        }
+        
+        .legal-link:hover {
+            color: #00EAFF;
+            text-shadow: 0 0 8px rgba(0, 234, 255, 0.5);
+            transition: all 0.3s ease;
+        }
+    </style>
+</head>
+<body class="font-sans antialiased relative min-h-screen flex flex-col">
+
+    <!-- EFFETS DE FOND -->
+    <div class="fixed inset-0 z-[-2] bg-[#000000]"></div>
+    <div class="fixed inset-0 scanlines"></div> 
+    <div class="fixed inset-0 z-[-1] overflow-hidden pointer-events-none">
+        <div class="absolute inset-0 bg-brand-dark/5 blur-[120px]"></div>
+        <div class="absolute top-[-5%] left-[-10%] w-[50vw] h-[50vw] bg-brand-purple/20 blur-[140px]"></div>
+        <div class="absolute bottom-[-10%] right-[-10%] w-[45vw] h-[45vw] bg-brand-cyan/15 blur-[130px]"></div>
+    </div>
+
+    <!-- HEADER COMPLET -->
+    <header id="main-header" class="fixed w-full top-0 z-50 bg-[#000000]/70 backdrop-blur-xl border-b border-brand-cyan/20 shadow-sm transition-all duration-300 py-2">
+        <div class="w-full px-6 md:px-8 lg:px-12 flex justify-between items-center">
+            <a href="index.html" class="flex items-center group relative z-10">
+                <img src="logo.png" alt="Logo Nathan Soulé" class="h-[75px] w-auto group-hover:scale-105 transition-transform duration-300" onerror="this.src='https://placehold.co/200x80/000000/00EAFF?text=LOGO&font=Orbitron'">
+            </a>
+            
+            <nav class="hidden md:flex items-center space-x-14">
+                <a href="index.html#realisations" class="nav-link text-sm font-share tracking-widest uppercase text-gray-300">Réalisations</a>
+                <a href="index.html#a-propos" class="nav-link text-sm font-share tracking-widest uppercase text-gray-300">À propos de moi</a>
+                <a href="index.html#cv" class="nav-link text-sm font-share tracking-widest uppercase text-gray-300">CV</a>
+                <a href="index.html#services" class="nav-link text-sm font-share tracking-widest uppercase text-gray-300">Services</a>
+                <a href="index.html#contact" class="border border-brand-cyan text-brand-cyan px-6 py-2.5 text-sm font-share tracking-widest uppercase hover:bg-brand-cyan/10 transition-all shadow-[0_0_15px_rgba(0,234,255,0.15)]">Me Contacter</a>
+            </nav>
+            <button id="mobile-menu-btn" class="md:hidden text-brand-cyan" aria-label="Menu">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+            </button>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-[#000000]/95 backdrop-blur-xl border-t border-brand-cyan/20 absolute w-full shadow-2xl">
+            <div class="px-4 pt-2 pb-6 space-y-2">
+                <a href="index.html#realisations" class="block px-3 py-2 font-share text-gray-300 tracking-widest uppercase hover:text-brand-cyan">Réalisations</a>
+                <a href="index.html#a-propos" class="block px-3 py-2 font-share text-gray-300 tracking-widest uppercase hover:text-brand-cyan">À propos de moi</a>
+                <a href="index.html#cv" class="block px-3 py-2 font-share text-gray-300 tracking-widest uppercase hover:text-brand-cyan">CV</a>
+                <a href="index.html#services" class="block px-3 py-2 font-share text-gray-300 tracking-widest uppercase hover:text-brand-cyan">Services</a>
+                <a href="index.html#contact" class="block px-3 py-2 bg-brand-cyan/10 border border-brand-cyan text-brand-cyan font-share text-center tracking-widest uppercase mt-4">Me Contacter</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- CONTENU PRINCIPAL -->
+    <main class="flex-grow w-full max-w-4xl mx-auto px-6 md:px-12 pt-32 pb-16 z-10 relative">
+        
+        <div class="mb-12 text-center">
+            <div class="inline-block px-4 py-2 mb-6 border border-brand-cyan/50 text-brand-cyan font-share text-xs tracking-widest uppercase shadow-[0_0_10px_rgba(0,234,255,0.1)]">
+                // SYSTÈME_LÉGAL_ET_CONFORMITÉ
+            </div>
+            <h1 class="text-3xl md:text-5xl font-heading font-black text-white uppercase tracking-widest mb-4">
+                Mentions <span class="text-transparent" style="-webkit-text-stroke: 1px #00EAFF;">Légales</span>
+            </h1>
+            <p class="text-gray-400 font-share text-sm tracking-widest uppercase">Dernière mise à jour : Avril 2026</p>
+        </div>
+
+        <div class="cyber-panel p-8 md:p-12 relative overflow-hidden">
+            <div class="absolute inset-0 scanlines opacity-40 pointer-events-none"></div>
+            
+            <div class="relative z-10 space-y-12">
+                
+                <!-- SECTION 1 : ÉDITEUR -->
+                <section>
+                    <h2 class="text-2xl font-heading font-bold text-brand-cyan uppercase tracking-widest mb-4 flex items-center gap-3">
+                        <span class="w-2 h-2 bg-brand-cyan shadow-[0_0_8px_#00EAFF]"></span> 1. Éditeur du site
+                    </h2>
+                    <div class="text-gray-300 leading-relaxed pl-5 border-l border-brand-cyan/30 space-y-2">
+                        <p>Le présent site est édité par :</p>
+                        <p><strong class="text-white">Nom et Prénom :</strong> Nathan Soulé</p>
+                        <p><strong class="text-white">Statut :</strong> Étudiant à Digital Campus Bordeaux (Bachelor Chef de Projet Digital - 2ème année)</p>
+                        <p><strong class="text-white">Adresse de domiciliation :</strong> 16 Chemin de Bénédigues, 33522 Talence, France</p>
+                        <p><strong class="text-white">Téléphone :</strong> 06 59 07 50 73</p>
+                        <p><strong class="text-white">E-mail :</strong> <a href="mailto:nathansoule33@gmail.com" class="legal-link">nathansoule33@gmail.com</a></p>
+                    </div>
+                </section>
+
+                <!-- SECTION 2 : DIRECTEUR PUBLICATION -->
+                <section>
+                    <h2 class="text-2xl font-heading font-bold text-brand-purple uppercase tracking-widest mb-4 flex items-center gap-3">
+                        <span class="w-2 h-2 bg-brand-purple shadow-[0_0_8px_#A837D6]"></span> 2. Directeur de la publication
+                    </h2>
+                    <div class="text-gray-300 leading-relaxed pl-5 border-l border-brand-purple/30">
+                        <p>Le directeur de la publication du présent site est <strong class="text-white">Monsieur Nathan Soulé</strong>.</p>
+                    </div>
+                </section>
+
+                <!-- SECTION 3 : HÉBERGEMENT -->
+                <section>
+                    <h2 class="text-2xl font-heading font-bold text-brand-cyan uppercase tracking-widest mb-4 flex items-center gap-3">
+                        <span class="w-2 h-2 bg-brand-cyan shadow-[0_0_8px_#00EAFF]"></span> 3. Hébergement
+                    </h2>
+                    <div class="text-gray-300 leading-relaxed pl-5 border-l border-brand-cyan/30 space-y-2">
+                        <p>Le site est hébergé par :</p>
+                        <p><strong class="text-white">o2switch</strong></p>
+                        <p>222-224 Boulevard Gustave Flaubert, 63000 Clermont-Ferrand, France</p>
+                        <p><strong class="text-white">Téléphone :</strong> 04 44 44 60 40</p>
+                        <p><strong class="text-white">Site web :</strong> <a href="https://www.o2switch.fr" target="_blank" class="legal-link">www.o2switch.fr</a></p>
+                    </div>
+                </section>
+
+                <!-- SECTION 4 : PROPRIÉTÉ INTELLECTUELLE -->
+                <section id="cgu" class="scroll-mt-24">
+                    <h2 class="text-2xl font-heading font-bold text-brand-purple uppercase tracking-widest mb-4 flex items-center gap-3">
+                        <span class="w-2 h-2 bg-brand-purple shadow-[0_0_8px_#A837D6]"></span> 4. Propriété Intellectuelle & Crédits
+                    </h2>
+                    <div class="text-gray-300 leading-relaxed pl-5 border-l border-brand-purple/30 space-y-4">
+                        <p>
+                            La structure générale du site, ainsi que les textes, le design, le code source et les créations graphiques (portfolio) sont la propriété exclusive de Nathan Soulé, sauf mention contraire. Toute reproduction, représentation, modification, publication, adaptation de tout ou partie des éléments du site, quel que soit le moyen ou le procédé utilisé, est interdite, sauf autorisation écrite préalable.
+                        </p>
+                        <p><strong class="text-white">Crédits spécifiques :</strong></p>
+                        <ul class="list-disc list-inside pl-4 space-y-1 text-sm">
+                            <li><strong>Images & Illustrations :</strong> Certaines images d'illustration proviennent de la banque d'images libres de droits <a href="https://unsplash.com/" target="_blank" class="legal-link">Unsplash</a>. Les réalisations présentées dans le portfolio (photographies, maquettes) sont des créations originales et réalisées par Nathan Soulé.</li>
+                            <li><strong>Typographies :</strong> Les polices utilisées (Orbitron, Rajdhani, Share Tech Mono) sont issues de <a href="https://fonts.google.com/" target="_blank" class="legal-link">Google Fonts</a>.</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- SECTION 5 : POLITIQUE DE CONFIDENTIALITÉ -->
+                <section id="confidentialite" class="scroll-mt-24">
+                    <h2 class="text-2xl font-heading font-bold text-brand-cyan uppercase tracking-widest mb-4 flex items-center gap-3">
+                        <span class="w-2 h-2 bg-brand-cyan shadow-[0_0_8px_#00EAFF]"></span> 5. Données Personnelles & Confidentialité
+                    </h2>
+                    <div class="text-gray-300 leading-relaxed pl-5 border-l border-brand-cyan/30 space-y-4">
+                        <p>
+                            Dans le cadre de l'utilisation du formulaire de contact, Nathan Soulé est amené à collecter et traiter certaines de vos données personnelles (adresse e-mail et informations contenues dans votre message).
+                        </p>
+                        <p>
+                            Ces données sont collectées dans le seul but de pouvoir répondre à vos demandes de contact, propositions d'alternance ou de collaboration. Elles ne sont en aucun cas revendues ou cédées à des tiers.
+                        </p>
+                        <p>
+                            Le traitement du formulaire de contact est assuré techniquement par le service tiers sécurisé <strong>Formspree</strong>.
+                        </p>
+                        <p>
+                            Conformément au Règlement Général sur la Protection des Données (RGPD) et à la loi Informatique et Libertés, vous disposez d’un droit d’accès, de rectification, de suppression et d'opposition aux données personnelles vous concernant. Pour exercer ce droit, vous pouvez envoyer un e-mail à : <a href="mailto:nathansoule33@gmail.com" class="legal-link font-bold">nathansoule33@gmail.com</a>.
+                        </p>
+                    </div>
+                </section>
+
+            </div>
+        </div>
+    </main>
+
+    <div class="w-full flex justify-center py-4 relative z-20">
+        <div class="cyber-divider"></div>
+    </div>
+
+    <!-- FOOTER COMPLET -->
+    <footer class="w-full bg-[#000000]/30 backdrop-blur-md border-t border-brand-cyan/20 relative z-20 mt-12 overflow-hidden flex flex-col">
+        <div class="w-full flex flex-col md:flex-row justify-between items-center py-8 md:py-6 px-6 md:px-12 relative z-10 gap-6 md:gap-8 mt-6 md:mt-0">
+            
+            <!-- Icône 3D Infini (Gauche) -->
+            <div class="hidden md:flex w-[75px] shrink-0 justify-start">
+                <div id="infinity-canvas-left" class="w-16 h-10 cursor-pointer block"></div>
+            </div>
+            
+            <!-- Centre : Cyber-Barre de Contact Animée -->
+            <div class="w-full md:flex-1 max-w-4xl min-w-0 relative border border-brand-cyan/40 shadow-[0_0_10px_rgba(0,234,255,0.15)] bg-transparent h-10 md:h-11 flex items-center group mx-auto overflow-hidden">
+                <div class="absolute inset-0 scanlines opacity-50 pointer-events-none z-20"></div>
+                <div class="w-full h-full overflow-hidden relative flex items-center px-2 z-10" style="-webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent); mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);">
+                    
+                    <div class="marquee-container-left flex w-max hover:[animation-play-state:paused] relative z-10 items-center h-full">
+                        
+                        <!-- GROUPE 1 -->
+                        <div class="flex items-center gap-8 md:gap-12 pr-8 md:pr-12 shrink-0 h-full">
+                            <!-- Série A -->
+                            <a href="javascript:void(0)" onclick="copyToClipboard('nathansoule33@gmail.com', 'E-mail copié !')" class="flex items-center gap-2 hover:scale-105 transition-transform duration-300 cursor-pointer shrink-0">
+                                <svg class="w-4 h-4 md:w-5 md:h-5 text-brand-cyan drop-shadow-[0_0_4px_rgba(0,234,255,0.6)]" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                                <span class="text-xs md:text-sm font-heading font-bold uppercase tracking-widest text-transparent hover:text-brand-cyan transition-colors duration-300" style="-webkit-text-stroke: 0.6px #00EAFF;">E-MAIL</span>
+                            </a>
+                            <a href="https://www.instagram.com/nathaaansl/" target="_blank" class="flex items-center gap-2 hover:scale-105 transition-transform duration-300 shrink-0">
+                                <svg class="w-4 h-4 md:w-5 md:h-5 text-brand-purple drop-shadow-[0_0_4px_rgba(168,55,214,0.6)]" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                                <span class="text-xs md:text-sm font-heading font-bold uppercase tracking-widest text-transparent hover:text-brand-purple transition-colors duration-300" style="-webkit-text-stroke: 0.6px #A837D6;">INSTAGRAM</span>
+                            </a>
+                            <a href="javascript:void(0)" onclick="copyToClipboard('+33659075073', 'Numéro de tel copié !')" class="flex items-center gap-2 hover:scale-105 transition-transform duration-300 cursor-pointer shrink-0">
+                                <svg class="w-4 h-4 md:w-5 md:h-5 text-brand-cyan drop-shadow-[0_0_4px_rgba(0,234,255,0.6)]" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"></path></svg>
+                                <span class="text-xs md:text-sm font-heading font-bold uppercase tracking-widest text-transparent hover:text-brand-cyan transition-colors duration-300" style="-webkit-text-stroke: 0.6px #00EAFF;">TÉLÉPHONE</span>
+                            </a>
+                            <a href="https://www.linkedin.com/in/nathan-soulé-82b19b290/" target="_blank" class="flex items-center gap-2 hover:scale-105 transition-transform duration-300 shrink-0">
+                                <svg class="w-4 h-4 md:w-5 md:h-5 text-brand-purple drop-shadow-[0_0_4px_rgba(168,55,214,0.6)]" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+                                <span class="text-xs md:text-sm font-heading font-bold uppercase tracking-widest text-transparent hover:text-brand-purple transition-colors duration-300" style="-webkit-text-stroke: 0.6px #A837D6;">LINKEDIN</span>
+                            </a>
+                            
+                            <!-- Série B -->
+                            <a href="javascript:void(0)" onclick="copyToClipboard('nathansoule33@gmail.com', 'E-mail copié !')" class="flex items-center gap-2 hover:scale-105 transition-transform duration-300 cursor-pointer shrink-0">
+                                <svg class="w-4 h-4 md:w-5 md:h-5 text-brand-cyan drop-shadow-[0_0_4px_rgba(0,234,255,0.6)]" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                                <span class="text-xs md:text-sm font-heading font-bold uppercase tracking-widest text-transparent hover:text-brand-cyan transition-colors duration-300" style="-webkit-text-stroke: 0.6px #00EAFF;">E-MAIL</span>
+                            </a>
+                            <a href="https://www.instagram.com/nathaaansl/" target="_blank" class="flex items-center gap-2 hover:scale-105 transition-transform duration-300 shrink-0">
+                                <svg class="w-4 h-4 md:w-5 md:h-5 text-brand-purple drop-shadow-[0_0_4px_rgba(168,55,214,0.6)]" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                                <span class="text-xs md:text-sm font-heading font-bold uppercase tracking-widest text-transparent hover:text-brand-purple transition-colors duration-300" style="-webkit-text-stroke: 0.6px #A837D6;">INSTAGRAM</span>
+                            </a>
+                            <a href="javascript:void(0)" onclick="copyToClipboard('+33659075073', 'Numéro de tel copié !')" class="flex items-center gap-2 hover:scale-105 transition-transform duration-300 cursor-pointer shrink-0">
+                                <svg class="w-4 h-4 md:w-5 md:h-5 text-brand-cyan drop-shadow-[0_0_4px_rgba(0,234,255,0.6)]" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"></path></svg>
+                                <span class="text-xs md:text-sm font-heading font-bold uppercase tracking-widest text-transparent hover:text-brand-cyan transition-colors duration-300" style="-webkit-text-stroke: 0.6px #00EAFF;">TÉLÉPHONE</span>
+                            </a>
+                            <a href="https://www.linkedin.com/in/nathan-soulé-82b19b290/" target="_blank" class="flex items-center gap-2 hover:scale-105 transition-transform duration-300 shrink-0">
+                                <svg class="w-4 h-4 md:w-5 md:h-5 text-brand-purple drop-shadow-[0_0_4px_rgba(168,55,214,0.6)]" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+                                <span class="text-xs md:text-sm font-heading font-bold uppercase tracking-widest text-transparent hover:text-brand-purple transition-colors duration-300" style="-webkit-text-stroke: 0.6px #A837D6;">LINKEDIN</span>
+                            </a>
+                        </div>
+
+                        <!-- GROUPE 2 (CLONE PARFAIT POUR LA BOUCLE) -->
+                        <div class="flex items-center gap-8 md:gap-12 pr-8 md:pr-12 shrink-0 h-full" aria-hidden="true">
+                            <!-- Série A -->
+                            <a href="javascript:void(0)" onclick="copyToClipboard('nathansoule33@gmail.com', 'E-mail copié !')" class="flex items-center gap-2 hover:scale-105 transition-transform duration-300 cursor-pointer shrink-0">
+                                <svg class="w-4 h-4 md:w-5 md:h-5 text-brand-cyan drop-shadow-[0_0_4px_rgba(0,234,255,0.6)]" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                                <span class="text-xs md:text-sm font-heading font-bold uppercase tracking-widest text-transparent hover:text-brand-cyan transition-colors duration-300" style="-webkit-text-stroke: 0.6px #00EAFF;">E-MAIL</span>
+                            </a>
+                            <a href="https://www.instagram.com/nathaaansl/" target="_blank" class="flex items-center gap-2 hover:scale-105 transition-transform duration-300 shrink-0">
+                                <svg class="w-4 h-4 md:w-5 md:h-5 text-brand-purple drop-shadow-[0_0_4px_rgba(168,55,214,0.6)]" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                                <span class="text-xs md:text-sm font-heading font-bold uppercase tracking-widest text-transparent hover:text-brand-purple transition-colors duration-300" style="-webkit-text-stroke: 0.6px #A837D6;">INSTAGRAM</span>
+                            </a>
+                            <a href="javascript:void(0)" onclick="copyToClipboard('+33659075073', 'Numéro de tel copié !')" class="flex items-center gap-2 hover:scale-105 transition-transform duration-300 cursor-pointer shrink-0">
+                                <svg class="w-4 h-4 md:w-5 md:h-5 text-brand-cyan drop-shadow-[0_0_4px_rgba(0,234,255,0.6)]" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"></path></svg>
+                                <span class="text-xs md:text-sm font-heading font-bold uppercase tracking-widest text-transparent hover:text-brand-cyan transition-colors duration-300" style="-webkit-text-stroke: 0.6px #00EAFF;">TÉLÉPHONE</span>
+                            </a>
+                            <a href="https://www.linkedin.com/in/nathan-soulé-82b19b290/" target="_blank" class="flex items-center gap-2 hover:scale-105 transition-transform duration-300 shrink-0">
+                                <svg class="w-4 h-4 md:w-5 md:h-5 text-brand-purple drop-shadow-[0_0_4px_rgba(168,55,214,0.6)]" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+                                <span class="text-xs md:text-sm font-heading font-bold uppercase tracking-widest text-transparent hover:text-brand-purple transition-colors duration-300" style="-webkit-text-stroke: 0.6px #A837D6;">LINKEDIN</span>
+                            </a>
+                            
+                            <!-- Série B -->
+                            <a href="javascript:void(0)" onclick="copyToClipboard('nathansoule33@gmail.com', 'E-mail copié !')" class="flex items-center gap-2 hover:scale-105 transition-transform duration-300 cursor-pointer shrink-0">
+                                <svg class="w-4 h-4 md:w-5 md:h-5 text-brand-cyan drop-shadow-[0_0_4px_rgba(0,234,255,0.6)]" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                                <span class="text-xs md:text-sm font-heading font-bold uppercase tracking-widest text-transparent hover:text-brand-cyan transition-colors duration-300" style="-webkit-text-stroke: 0.6px #00EAFF;">E-MAIL</span>
+                            </a>
+                            <a href="https://www.instagram.com/nathaaansl/" target="_blank" class="flex items-center gap-2 hover:scale-105 transition-transform duration-300 shrink-0">
+                                <svg class="w-4 h-4 md:w-5 md:h-5 text-brand-purple drop-shadow-[0_0_4px_rgba(168,55,214,0.6)]" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                                <span class="text-xs md:text-sm font-heading font-bold uppercase tracking-widest text-transparent hover:text-brand-purple transition-colors duration-300" style="-webkit-text-stroke: 0.6px #A837D6;">INSTAGRAM</span>
+                            </a>
+                            <a href="javascript:void(0)" onclick="copyToClipboard('+33659075073', 'Numéro de tel copié !')" class="flex items-center gap-2 hover:scale-105 transition-transform duration-300 cursor-pointer shrink-0">
+                                <svg class="w-4 h-4 md:w-5 md:h-5 text-brand-cyan drop-shadow-[0_0_4px_rgba(0,234,255,0.6)]" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"></path></svg>
+                                <span class="text-xs md:text-sm font-heading font-bold uppercase tracking-widest text-transparent hover:text-brand-cyan transition-colors duration-300" style="-webkit-text-stroke: 0.6px #00EAFF;">TÉLÉPHONE</span>
+                            </a>
+                            <a href="https://www.linkedin.com/in/nathan-soulé-82b19b290/" target="_blank" class="flex items-center gap-2 hover:scale-105 transition-transform duration-300 shrink-0">
+                                <svg class="w-4 h-4 md:w-5 md:h-5 text-brand-purple drop-shadow-[0_0_4px_rgba(168,55,214,0.6)]" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+                                <span class="text-xs md:text-sm font-heading font-bold uppercase tracking-widest text-transparent hover:text-brand-purple transition-colors duration-300" style="-webkit-text-stroke: 0.6px #A837D6;">LINKEDIN</span>
+                            </a>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Icône 3D Infini (Droite) -->
+            <div class="w-full md:w-[75px] shrink-0 flex justify-center md:justify-end">
+                <div id="infinity-canvas-right" class="w-16 h-10 cursor-pointer block"></div>
+            </div>
+        </div>
+
+        <!-- SECTION : Liens Légaux & Copyright (Centré) -->
+        <div class="w-full border-t border-brand-cyan/10 py-4 px-6 flex justify-center items-center relative z-10 bg-[#000000]/50">
+            <div class="flex flex-wrap justify-center items-center gap-3 sm:gap-4 text-gray-500 font-share text-[10px] md:text-[11px] tracking-widest uppercase text-center">
+                <span>Copyright © 2026 Nathan Soulé</span>
+                <span class="text-brand-cyan/30 hidden md:inline">|</span>
+                <a href="#" class="hover:text-brand-cyan transition-colors duration-300">Mentions Légales</a>
+                <span class="text-brand-cyan/30 hidden md:inline">|</span>
+                <a href="#confidentialite" class="hover:text-brand-cyan transition-colors duration-300">Politique de Confidentialité</a>
+                <span class="text-brand-cyan/30 hidden md:inline">|</span>
+                <a href="#cgu" class="hover:text-brand-cyan transition-colors duration-300">CGU</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- NOTIFICATION TOAST CYBERPUNK -->
+    <div id="cyber-toast" class="fixed bottom-6 right-6 z-[200] transform translate-y-[150%] opacity-0 transition-all duration-300 ease-out pointer-events-none">
+        <div class="bg-brand-dark/95 border border-brand-cyan shadow-[0_0_20px_rgba(0,234,255,0.4)] px-6 py-4 flex items-center gap-4 backdrop-blur-md">
+            <span class="w-2 h-2 bg-brand-cyan animate-pulse shadow-[0_0_8px_#00EAFF]"></span>
+            <span id="cyber-toast-message" class="text-white font-share tracking-widest text-sm uppercase">Donnée copiée</span>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT COMPLET -->
+    <script>
+        // Logique de navigation mobile et d'en-tête dynamique
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+        const header = document.getElementById('main-header');
+
+        if(btn) {
+            btn.addEventListener('click', () => { menu.classList.toggle('hidden'); });
+        }
+
+        let ticking = false;
+        window.addEventListener('scroll', () => {
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    if (window.scrollY > 20) { header.classList.add('bg-[#000000]/95'); header.classList.remove('bg-[#000000]/70'); } 
+                    else { header.classList.add('bg-[#000000]/70'); header.classList.remove('bg-[#000000]/95'); }
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        }, { passive: true });
+
+        // Fonction de Copie Presse-papier
+        function copyToClipboard(text, message) {
+            const textArea = document.createElement("textarea");
+            textArea.value = text;
+            textArea.style.position = "fixed";
+            textArea.style.left = "-9999px";
+            document.body.appendChild(textArea);
+            textArea.select();
+            
+            try {
+                document.execCommand('copy');
+                showToast(message);
+            } catch (err) {
+                console.error('Erreur lors de la copie', err);
+            }
+            
+            document.body.removeChild(textArea);
+        }
+
+        // Affichage des notifications toast
+        function showToast(message) {
+            const toast = document.getElementById('cyber-toast');
+            const toastMessage = document.getElementById('cyber-toast-message');
+            
+            toastMessage.innerText = message;
+            
+            toast.classList.remove('translate-y-[150%]', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+            
+            setTimeout(() => {
+                toast.classList.remove('translate-y-0', 'opacity-100');
+                toast.classList.add('translate-y-[150%]', 'opacity-0');
+            }, 3000);
+        }
+
+        // --- Animation 3D (Three.js) ---
+        function createInfinity(containerId, customScale, cameraZ) {
+            const container = document.getElementById(containerId);
+            if (!container || typeof THREE === 'undefined') return;
+            if(container.hasChildNodes()) return;
+
+            let isVisible = false;
+            let frameId = null;
+            let time = 0; 
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => { 
+                    isVisible = entry.isIntersecting; 
+                    if (isVisible && !frameId) {
+                        animate();
+                    } else if (!isVisible && frameId) {
+                        cancelAnimationFrame(frameId);
+                        frameId = null;
+                    }
+                });
+            }, { threshold: 0, rootMargin: "100px" });
+            observer.observe(container);
+
+            const scene = new THREE.Scene();
+            const w = container.clientWidth || 300;
+            const h = container.clientHeight || 300;
+            const camera = new THREE.PerspectiveCamera(40, w / h, 0.1, 100);
+            camera.position.z = cameraZ;
+
+            const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+            renderer.setSize(w, h);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            container.appendChild(renderer.domElement);
+
+            class InfinityCurve extends THREE.Curve {
+                constructor(scale = 1) { super(); this.scale = scale; }
+                getPoint(t, optionalTarget = new THREE.Vector3()) {
+                    const angle = 2 * Math.PI * t;
+                    const a = this.scale;
+                    const denom = 1 + Math.pow(Math.sin(angle), 2);
+                    return optionalTarget.set((a * Math.cos(angle)) / denom, (a * Math.sin(angle) * Math.cos(angle)) / denom, 0);
+                }
+            }
+
+            const path = new InfinityCurve(customScale);
+            const geometry = new THREE.TubeGeometry(path, 64, 0.07 * (customScale/1.5), 8, true);
+            const material = new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 1.0, side: THREE.DoubleSide });
+            const tube = new THREE.Mesh(geometry, material);
+
+            const wireGeo = new THREE.TubeGeometry(path, 64, 0.08 * (customScale/1.5), 8, true);
+            const wireMat = new THREE.MeshBasicMaterial({ color: 0x00EAFF, wireframe: true, transparent: true, opacity: 0.5, blending: THREE.AdditiveBlending });
+            const wireframe = new THREE.Mesh(wireGeo, wireMat);
+
+            const auraGeo1 = new THREE.TubeGeometry(path, 64, 0.12 * (customScale/1.5), 8, true);
+            const auraMat1 = new THREE.MeshBasicMaterial({ color: 0x00EAFF, transparent: true, opacity: 0.6, blending: THREE.AdditiveBlending, side: THREE.DoubleSide });
+            const aura1 = new THREE.Mesh(auraGeo1, auraMat1);
+
+            const auraGeo2 = new THREE.TubeGeometry(path, 64, 0.22 * (customScale/1.5), 8, true);
+            const auraMat2 = new THREE.MeshBasicMaterial({ color: 0x00EAFF, transparent: true, opacity: 0.25, blending: THREE.AdditiveBlending, side: THREE.DoubleSide });
+            const aura2 = new THREE.Mesh(auraGeo2, auraMat2);
+
+            const auraGeo3 = new THREE.TubeGeometry(path, 64, 0.38 * (customScale/1.5), 8, true);
+            const auraMat3 = new THREE.MeshBasicMaterial({ color: 0x00EAFF, transparent: true, opacity: 0.08, blending: THREE.AdditiveBlending, side: THREE.DoubleSide });
+            const aura3 = new THREE.Mesh(auraGeo3, auraMat3);
+
+            const group = new THREE.Group();
+            group.add(tube, wireframe, aura1, aura2, aura3);
+            scene.add(group);
+
+            function animate() {
+                if (!isVisible) return; 
+                frameId = requestAnimationFrame(animate);
+                
+                time += 0.02;
+                group.rotation.y += 0.007; 
+                group.position.y = Math.sin(time) * 0.1 * (customScale/1.5);
+                renderer.render(scene, camera);
+            }
+
+            let resizeTimeout;
+            window.addEventListener('resize', () => {
+                clearTimeout(resizeTimeout);
+                resizeTimeout = setTimeout(() => {
+                    if (container.clientWidth && container.clientHeight) {
+                        camera.aspect = container.clientWidth / container.clientHeight;
+                        camera.updateProjectionMatrix();
+                        renderer.setSize(container.clientWidth, container.clientHeight);
+                    }
+                }, 150);
+            }, { passive: true });
+        }
+        
+        // Initialisation de l'animation 3D au chargement
+        window.addEventListener('DOMContentLoaded', () => {
+            createInfinity('infinity-canvas-left', 1.5, 4); 
+            createInfinity('infinity-canvas-right', 1.5, 4); 
+        });
+    </script>
+</body>
+</html>

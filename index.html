@@ -1,0 +1,1980 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Portfolio de Nathan Soulé, étudiant en Bachelor Chef de Projet Digital. Découvrez mes réalisations web, design et communication dans un univers cyberpunk.">
+    <title>Nathan Soulé - Chef de Projet Digital</title>
+    
+    <!-- ======================================================= -->
+    <!-- BANNIÈRE DE FENÊTRE & SEO -->
+    <!-- ======================================================= -->
+    <link rel="icon" type="favicon.png" href="https://nathan-soule.fr/favicon.jpg">
+    <link rel="apple-touch-icon" href="https://nathan-soule.fr/favicon.jpg">
+    
+    <meta property="og:title" content="Nathan Soulé - Chef de Projet Digital">
+    <meta property="og:description" content="Portfolio de Nathan Soulé, étudiant à Digital Campus. Découvrez mes réalisations web, design et communication.">
+    <meta property="og:image" content="https://nathan-soule.fr/banniere-de-partage.jpg">
+    <meta property="og:url" content="https://nathan-soule.fr/">
+    <meta property="og:type" content="website">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Nathan Soulé - Chef de Projet Digital">
+    <meta name="twitter:image" content="https://nathan-soule.fr/banniere-de-partage.jpg">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Nathan Soulé",
+      "url": "https://nathan-soule.fr/",
+      "image": "https://nathan-soule.fr/nathan-soule-photographie-passion-photo-6.jpg",
+      "jobTitle": "Chef de Projet Digital"
+    }
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;800;900&display=swap" as="style">
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&family=Orbitron:wght@400;500;600;700;800;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    
+    <script>
+        // --- DÉTECTION SAFARI ---
+        const isSafariBrowser = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+        if (isSafariBrowser) {
+            document.documentElement.classList.add('is-safari');
+        }
+
+        // Configuration Tailwind
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: { cyan: '#00EAFF', purple: '#A837D6', dark: '#072B37', bg: '#000000' }
+                    },
+                    fontFamily: {
+                        sans: ['Rajdhani', 'sans-serif'],
+                        heading: ['Orbitron', 'sans-serif'],
+                        orbitron: ['Orbitron', 'sans-serif'],
+                        share: ['"Share Tech Mono"', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        /* --- BASE & PERFORMANCES --- */
+        html { scroll-behavior: smooth; }
+        body { background-color: #000000; overflow-x: hidden; margin: 0; padding: 0; color: #E5E7EB; overscroll-behavior-x: none; }
+        @media (min-width: 768px) and (pointer: fine) { body, a, button, input, textarea, select, .cursor-pointer { cursor: none !important; } }
+        .bg-opti { -webkit-backface-visibility: hidden; backface-visibility: hidden; transform: translateZ(0); }
+
+        /* Classe utilitaire injectée par JS pour sauver le GPU hors-écran */
+        .pause-animation, .pause-animation * { animation-play-state: paused !important; }
+
+        /* --- PRELOADER --- */
+        body.loading { overflow: hidden !important; }
+        #preloader { transition: opacity 0.5s ease, visibility 0.5s ease; }
+        .preloader-logo { opacity: 0; transform: scale(0.8); animation: pulseLogo 1.5s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+
+        @keyframes pulseLogo {
+            0% { opacity: 0; transform: scale(0.8); }
+            50% { opacity: 1; transform: scale(1.05); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+        @keyframes loadingBar {
+            0% { width: 0%; opacity: 1; }
+            80% { width: 100%; opacity: 1; }
+            100% { width: 100%; opacity: 0; }
+        }
+
+        /* --- EFFETS VISUELS & UI --- */
+        .scanlines {
+            background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0) 50%, rgba(0,234,255,0.02) 50%, rgba(0,234,255,0.02));
+            background-size: 100% 4px; pointer-events: none; z-index: -1;
+        }
+
+        .nav-link { position: relative; display: inline-block; transition: all 0.3s ease; padding: 0 4px; }
+        .nav-link::before { content: '['; position: absolute; left: 10px; opacity: 0; color: #00EAFF; font-family: 'Share Tech Mono', monospace; font-weight: bold; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        .nav-link::after { content: ']'; position: absolute; right: 10px; opacity: 0; color: #00EAFF; font-family: 'Share Tech Mono', monospace; font-weight: bold; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        .nav-link:hover::before { left: -15px; opacity: 1; }
+        .nav-link:hover::after { right: -15px; opacity: 1; }
+        .nav-link:hover { color: #00EAFF !important; text-shadow: 0 0 10px rgba(0, 234, 255, 0.6); }
+
+        /* --- PANNEAUX CYBER --- */
+        .cyber-panel {
+            background-color: rgba(7, 43, 55, 0.4); 
+            border: 1px solid rgba(0, 234, 255, 0.2);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.8);
+            transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease; 
+            backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+        }
+        .cyber-panel:hover {
+            border-color: rgba(0, 234, 255, 0.8);
+            box-shadow: 0 0 25px rgba(0, 234, 255, 0.15), inset 0 0 15px rgba(0, 234, 255, 0.05);
+        }
+        .cyber-panel.panel-purple { border-color: rgba(168, 55, 214, 0.2); }
+        .cyber-panel.panel-purple:hover {
+            border-color: rgba(168, 55, 214, 0.8);
+            box-shadow: 0 0 25px rgba(168, 55, 214, 0.15), inset 0 0 15px rgba(168, 55, 214, 0.05);
+        }
+
+        /* Scrollbar masquée pour conteneurs horizontaux UNIQUEMENT */
+        .hide-native-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-native-scrollbar { 
+            -ms-overflow-style: none; scrollbar-width: none; 
+            -webkit-overflow-scrolling: touch; touch-action: pan-y;
+        }
+
+        .cyber-divider { height: 1px; width: 100%; max-width: 1000px; background: linear-gradient(90deg, transparent, rgba(0, 234, 255, 0.6), transparent); }
+
+        /* --- ANIMATIONS : MARQUEES & PLASMAS --- */
+        @keyframes scrollMarqueeLeft { 0% { transform: translate3d(0,0,0); } 100% { transform: translate3d(-50%,0,0); } }
+        @keyframes scrollMarqueeRight { 0% { transform: translate3d(-50%,0,0); } 100% { transform: translate3d(0,0,0); } }
+        .marquee-container-left { display: flex; width: max-content; animation: scrollMarqueeLeft 60s linear infinite; }
+        .marquee-container-right { display: flex; width: max-content; animation: scrollMarqueeRight 60s linear infinite; }
+
+        @keyframes breatheNeon { 0%, 100% { box-shadow: 0 0 5px rgba(0, 234, 255, 0.1); } 50% { box-shadow: 0 0 20px rgba(0, 234, 255, 0.4), 0 0 30px rgba(0, 234, 255, 0.2); } }
+        .btn-breathe-neon { animation: breatheNeon 4s ease-in-out infinite; }
+        .btn-breathe-neon:hover { animation-play-state: paused; box-shadow: 0 0 30px rgba(0, 234, 255, 0.7); }
+
+        @keyframes plasmaMorph1 { 0%, 100% { transform: translate3d(0, 0, 0) scale(1) rotate(0deg); } 50% { transform: translate3d(4%, 4%, 0) scale(1.1) rotate(15deg); } }
+        @keyframes plasmaMorph2 { 0%, 100% { transform: translate3d(0, 0, 0) scale(1) rotate(0deg); } 50% { transform: translate3d(-4%, -4%, 0) scale(1.1) rotate(-15deg); } }
+        .animate-plasma-1 { animation: plasmaMorph1 25s ease-in-out infinite; border-radius: 50%; }
+        .animate-plasma-2 { animation: plasmaMorph2 30s ease-in-out infinite; border-radius: 50%; }
+
+        @keyframes neonGlitch {
+            0%, 40% { opacity: 1; } 40.1%, 42% { opacity: 0.1; } 42.1%, 44% { opacity: 1; } 44.1%, 45% { opacity: 0.4; }
+            45.1%, 80% { opacity: 1; } 80.1%, 82.5% { opacity: 0.1; } 82.6%, 84% { opacity: 1; } 84.1%, 86% { opacity: 0.3; } 86.1%, 100% { opacity: 1; }
+        }
+        .neon-glitch { animation: neonGlitch 8s infinite; }
+
+        @keyframes slideStripes { 0% { background-position: 0 0; } 100% { background-position: 28.28px 0; } }
+        .btn-locked {
+            background-image: repeating-linear-gradient(-45deg, rgba(0, 234, 255, 0.01), rgba(0, 234, 255, 0.01) 10px, rgba(0, 234, 255, 0.06) 10px, rgba(0, 234, 255, 0.06) 20px);
+            background-size: 28.28px 28.28px; animation: slideStripes 1s linear infinite;
+        }
+        .btn-locked-red {
+            background-image: repeating-linear-gradient(-45deg, rgba(255, 0, 60, 0.02), rgba(255, 0, 60, 0.02) 10px, rgba(255, 0, 60, 0.1) 10px, rgba(255, 0, 60, 0.1) 20px);
+            background-size: 28.28px 28.28px; animation: slideStripes 1s linear infinite;
+        }
+
+        /* --- REVEAL SYSTEM --- */
+        .reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.8s ease-out, transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+        .delay-100 { transition-delay: 100ms; } .delay-200 { transition-delay: 200ms; } .delay-300 { transition-delay: 300ms; }
+
+        .skill-fill { width: 0; transition: width 1.5s cubic-bezier(0.2, 0.8, 0.2, 1); }
+        .reveal.active .skill-fill { width: var(--target-width); }
+        .space-y-6 > div:nth-child(1) .skill-fill { transition-delay: 0.4s; }
+        .space-y-6 > div:nth-child(2) .skill-fill { transition-delay: 0.6s; }
+        .space-y-6 > div:nth-child(3) .skill-fill { transition-delay: 0.8s; }
+        .space-y-6 > div:nth-child(4) .skill-fill { transition-delay: 1.0s; }
+        .space-y-6 > div:nth-child(5) .skill-fill { transition-delay: 1.2s; }
+
+        /* --- ACCESSIBILITÉ & UI --- */
+        ::-webkit-scrollbar { width: 10px; height: 10px; }
+        ::-webkit-scrollbar-track { background: #01070A; border-left: 1px solid rgba(0, 234, 255, 0.1); }
+        ::-webkit-scrollbar-thumb { background: rgba(0, 234, 255, 0.3); border-radius: 2px; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(0, 234, 255, 0.6); }
+
+        *:focus-visible { outline: 2px dashed #00EAFF !important; outline-offset: 6px !important; border-radius: 2px; transition: outline-offset 0.2s ease; }
+
+        .text-justify { text-align: left !important; }
+        .text-gray-200, .text-gray-400, .text-gray-500 { color: #E5E7EB !important; font-weight: 500 !important; }
+        .text-gray-300 { color: #F3F4F6 !important; text-shadow: 0 1px 3px rgba(0,0,0,0.8); font-weight: 500 !important; }
+        .font-normal { font-weight: 500 !important; }
+        .text-\[10px\], .text-\[11px\], .text-xs { font-size: 0.8rem !important; line-height: 1.2rem !important; letter-spacing: 0.1em; font-weight: 600 !important; }
+        p { line-height: 1.8 !important; letter-spacing: 0.02em; font-weight: 500 !important; text-shadow: 0 2px 4px rgba(0,0,0,0.9); }
+
+        #projects-container .cyber-panel { padding: 2rem !important; }
+        @media (min-width: 768px) { #projects-container .cyber-panel { padding: 2.5rem !important; } }
+        #projects-container h3 { margin-bottom: 1rem !important; }
+        #projects-container p.pb-6 { padding-bottom: 2rem !important; }
+
+        .group\/year { padding-bottom: 4.5rem !important; }
+        .group\/year h3 { margin-bottom: 1.5rem !important; }
+        .group\/year .space-y-6 > * + * { margin-top: 2rem !important; }
+        #services ul { margin-top: 2rem !important; margin-bottom: 2.5rem !important; }
+        #services li { margin-bottom: 1.25rem !important; font-size: 0.95rem !important; }
+
+        #contactForm label { margin-bottom: 0.75rem !important; display: inline-block; font-size: 0.85rem !important; }
+        #contactForm input, #contactForm textarea { padding: 1.25rem !important; font-size: 1rem !important; }
+
+        /* --- SAFARI FALLBACKS --- */
+        html.is-safari .reveal,
+        html.is-safari .reveal-left,
+        html.is-safari .reveal-right,
+        html.is-safari .reveal-scale { opacity: 1 !important; transform: none !important; transition: none !important; }
+        html.is-safari .skill-fill { width: var(--target-width) !important; transition: none !important; }
+        html.is-safari .cursor-dot,
+        html.is-safari .cursor-halo { mix-blend-mode: normal; }
+        @media (max-width: 768px) { .skill-fill { width: var(--target-width) !important; transition: none !important; } }
+
+        /* --- CUSTOM CURSOR NÉON --- */
+        .cursor-dot {
+            position: fixed; width: 6px; height: 6px; background: #00EAFF; border-radius: 50%;
+            pointer-events: none; z-index: 10000; transform: translate(-50%, -50%);
+            box-shadow: 0 0 10px #00EAFF, 0 0 20px rgba(0,234,255,0.4);
+            transition: width 0.2s, height 0.2s, background 0.2s, box-shadow 0.2s;
+            mix-blend-mode: screen;
+        }
+        .cursor-halo {
+            position: fixed; width: 40px; height: 40px; border: 1px solid rgba(0,234,255,0.4); border-radius: 50%;
+            pointer-events: none; z-index: 9999; transform: translate(-50%, -50%);
+            transition: width 0.25s ease, height 0.25s ease, border-color 0.25s ease, opacity 0.25s ease;
+        }
+        body.cursor-hover .cursor-dot {
+            width: 12px; height: 12px; background: #A837D6;
+            box-shadow: 0 0 15px #A837D6, 0 0 30px rgba(168,55,214,0.5);
+        }
+        body.cursor-hover .cursor-halo { width: 60px; height: 60px; border-color: rgba(168,55,214,0.5); }
+        body.cursor-click .cursor-dot { width: 4px; height: 4px; }
+        body.cursor-click .cursor-halo { width: 30px; height: 30px; border-color: rgba(0,234,255,0.8); }
+        @media (max-width: 767px), (pointer: coarse) { .cursor-dot, .cursor-halo { display: none !important; } }
+
+        /* --- SCROLL PROGRESS BAR --- */
+        #scroll-progress {
+            position: fixed; top: 0; left: 0; height: 3px; width: 0%;
+            background: #00EAFF;
+            transition: width 0.15s ease-out;
+            z-index: 10001; pointer-events: none;
+            box-shadow: 0 0 10px rgba(0,234,255,0.8), 0 0 20px rgba(0,234,255,0.4);
+        }
+
+        /* --- CARD 3D TILT + HOLOGRAPHIC SHINE --- */
+        .card-tilt { transform-style: preserve-3d; transition: transform 0.15s ease-out; }
+        .card-shine {
+            position: absolute; inset: 0; z-index: 15; pointer-events: none;
+            background: radial-gradient(circle at var(--shine-x, 50%) var(--shine-y, 50%), rgba(0,234,255,0.15) 0%, rgba(168,55,214,0.05) 40%, transparent 70%);
+            opacity: 0; transition: opacity 0.4s ease;
+        }
+        .card-tilt:hover .card-shine { opacity: 1; }
+
+        /* --- TYPEWRITER EFFECT --- */
+        .typewriter-cursor {
+            display: inline-block; width: 2px; height: 1.1em; background: #00EAFF;
+            margin-left: 3px; vertical-align: text-bottom;
+            animation: blink-cursor 0.7s step-end infinite;
+            box-shadow: 0 0 6px rgba(0,234,255,0.8);
+        }
+        @keyframes blink-cursor { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+        /* --- TERMINAL FORM --- */
+        .terminal-label {
+            display: flex; align-items: center; gap: 0.5rem;
+            font-family: 'Share Tech Mono', monospace; color: #00EAFF;
+            letter-spacing: 0.15em; font-size: 0.75rem; text-transform: uppercase;
+        }
+        .terminal-label .prompt { color: rgba(0,234,255,0.5); font-weight: bold; user-select: none; }
+        .terminal-input:focus { border-color: #00EAFF !important; box-shadow: 0 0 15px rgba(0,234,255,0.2), inset 0 0 8px rgba(0,234,255,0.05) !important; }
+        .form-progress { width: 0%; height: 2px; background: #00EAFF; box-shadow: 0 0 10px #00EAFF; transition: width 0.3s ease; }
+
+        /* --- ACTIVE NAV INDICATOR --- */
+        .nav-link.nav-active::before { left: -15px; opacity: 1; }
+        .nav-link.nav-active::after { right: -15px; opacity: 1; }
+        .nav-link.nav-active { color: #00EAFF !important; text-shadow: 0 0 10px rgba(0, 234, 255, 0.6); }
+
+        /* --- MOBILE MENU ANIMATION --- */
+        @media (max-width: 767px) {
+            #mobile-menu {
+                display: block !important; max-height: 0; overflow: hidden; opacity: 0;
+                transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
+            }
+            #mobile-menu.menu-open { max-height: 500px; opacity: 1; }
+        }
+
+        /* --- SCANNING LINE EFFECT --- */
+        .scan-line {
+            position: fixed; top: -2px; left: 0; right: 0; height: 2px;
+            background: linear-gradient(90deg, transparent 5%, rgba(0,234,255,0.08) 30%, rgba(0,234,255,0.12) 50%, rgba(0,234,255,0.08) 70%, transparent 95%);
+            animation: scan-down 8s linear infinite; pointer-events: none; z-index: 99;
+        }
+        @keyframes scan-down { 0% { top: -2px; } 100% { top: 100vh; } }
+
+        /* --- CTA BUTTON SCAN HOVER --- */
+        .btn-scan { position: relative; overflow: hidden; }
+        .btn-scan::before {
+            content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0,234,255,0.12), transparent);
+            z-index: 1;
+        }
+        .btn-scan:hover::before { animation: btnScanPass 0.6s ease forwards; }
+        @keyframes btnScanPass { 0% { left: -100%; } 100% { left: 100%; } }
+
+        /* --- PANEL GLOW TRACKING --- */
+        .panel-glow {
+            position: absolute; inset: 0; pointer-events: none; z-index: 0; border-radius: inherit;
+            background: radial-gradient(600px circle at var(--glow-x, 50%) var(--glow-y, 50%), rgba(0,234,255,0.06) 0%, transparent 50%);
+            opacity: 0; transition: opacity 0.4s ease;
+        }
+        .cyber-panel:hover .panel-glow { opacity: 1; }
+
+        /* --- PRELOADER BOOT SEQUENCE --- */
+        .boot-line {
+            font-family: 'Share Tech Mono', monospace; font-size: 0.7rem; color: rgba(0,234,255,0.6);
+            letter-spacing: 0.15em; text-transform: uppercase; opacity: 0;
+            transform: translateY(5px); transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+        .boot-line.visible { opacity: 1; transform: translateY(0); }
+        .boot-line.success { color: #22c55e; }
+        @keyframes glitchLogo {
+            0%, 85%, 100% { filter: none; transform: scale(1) translate(0); }
+            86% { filter: hue-rotate(90deg) brightness(1.5); transform: scale(1.02) translate(-2px, 1px); }
+            88% { filter: none; transform: scale(1) translate(1px, -1px); }
+            90% { filter: hue-rotate(-90deg) saturate(2); transform: scale(0.99) translate(-1px); }
+            92% { filter: none; transform: scale(1); }
+        }
+        .preloader-glitch { animation: glitchLogo 2s infinite, pulseLogo 1.5s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+
+        /* --- REVEAL VARIANTS --- */
+        .reveal-left { opacity: 0; transform: translateX(-50px); transition: opacity 0.8s ease-out, transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1); }
+        .reveal-right { opacity: 0; transform: translateX(50px); transition: opacity 0.8s ease-out, transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1); }
+        .reveal-scale { opacity: 0; transform: scale(0.9); transition: opacity 0.8s ease-out, transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1); }
+        .reveal-left.active, .reveal-right.active, .reveal-scale.active { opacity: 1; transform: translate(0) scale(1); }
+
+        /* --- ANIMATED CYBER DIVIDER --- */
+        .cyber-divider-animated {
+            height: 1px; width: 100%; max-width: 1000px; position: relative; overflow: hidden;
+            background: linear-gradient(90deg, transparent, rgba(0, 234, 255, 0.3), transparent);
+        }
+        .cyber-divider-animated::after {
+            content: ''; position: absolute; top: 0; left: -30%; width: 30%; height: 100%;
+            background: linear-gradient(90deg, transparent, #00EAFF, transparent);
+            animation: dividerPulse 4s ease-in-out infinite;
+        }
+        @keyframes dividerPulse { 0% { left: -30%; } 100% { left: 100%; } }
+    </style>
+</head>
+<body class="font-sans antialiased relative loading">
+
+    <!-- CUSTOM CURSOR NÉON -->
+    <div class="cursor-dot" id="cursor-dot"></div>
+    <div class="cursor-halo" id="cursor-halo"></div>
+
+    <!-- SCROLL PROGRESS BAR -->
+    <div id="scroll-progress" aria-hidden="true"></div>
+
+    <!-- PRELOADER CYBERPUNK BOOT SEQUENCE -->
+    <div id="preloader" class="fixed inset-0 z-[9999] bg-[#000000] flex flex-col justify-center items-center">
+        <img src="logo.png" alt="Chargement Nathan Soulé..." class="preloader-glitch h-[85px] w-auto mb-6" onerror="this.src='https://placehold.co/200x80/000000/00EAFF?text=LOGO&font=Orbitron'">
+        <div class="w-56 h-[2px] bg-brand-cyan/20 relative overflow-hidden rounded-full mb-4">
+            <div class="absolute top-0 left-0 h-full bg-brand-cyan shadow-[0_0_10px_#00EAFF] animate-[loadingBar_1.8s_ease-in-out_forwards]"></div>
+        </div>
+        <div class="flex flex-col items-start gap-1 mt-2 w-56" id="boot-lines">
+            <div class="boot-line" data-delay="200">> Chargement des modules...</div>
+            <div class="boot-line" data-delay="500">> Connexion réseau neural...</div>
+            <div class="boot-line" data-delay="900">> Initialisation interface...</div>
+            <div class="boot-line success" data-delay="1300">> Système prêt ✓</div>
+        </div>
+    </div>
+
+    <!-- SÉCURITÉ ANTI-BLOCAGE -->
+    <script>
+        const minPreloaderTime = 1500; 
+        const preloaderStartTime = Date.now();
+        let preloaderHidden = false;
+
+        const hidePreloader = () => {
+            if (preloaderHidden) return;
+            preloaderHidden = true;
+            
+            const preloader = document.getElementById('preloader');
+            if (preloader) {
+                preloader.style.opacity = '0';
+                preloader.style.pointerEvents = 'none';
+                
+                setTimeout(() => {
+                    preloader.style.visibility = 'hidden';
+                    window.dispatchEvent(new Event('preloaderHidden'));
+                }, 500); 
+            }
+            document.body.classList.remove('loading');
+        };
+
+        // Boot sequence animation
+        document.querySelectorAll('.boot-line').forEach(line => {
+            setTimeout(() => line.classList.add('visible'), parseInt(line.dataset.delay));
+        });
+
+        window.addEventListener('load', () => {
+            const elapsed = Date.now() - preloaderStartTime;
+            if (elapsed < minPreloaderTime) {
+                setTimeout(hidePreloader, minPreloaderTime - elapsed);
+            } else {
+                hidePreloader();
+            }
+        });
+        setTimeout(hidePreloader, 5000);
+    </script>
+
+    <!-- FONDS & AMBIANCE -->
+    <div class="fixed inset-0 z-[-2] bg-[#000000] bg-opti" aria-hidden="true"></div>
+    <div class="fixed inset-0 scanlines bg-opti js-pause-target" aria-hidden="true"></div> 
+    
+    <div class="fixed inset-0 z-[-1] overflow-hidden pointer-events-none" aria-hidden="true">
+        <div class="absolute inset-0 bg-brand-dark/5"></div>
+        <div id="plasma-1" class="absolute top-[-20%] left-[-20%] w-[80vw] h-[80vw] bg-[radial-gradient(circle,rgba(168,55,214,0.4)_0%,rgba(168,55,214,0.2)_40%,transparent_70%)] animate-plasma-1 js-pause-target"></div>
+        <div id="plasma-2" class="absolute bottom-[-20%] right-[-20%] w-[70vw] h-[70vw] bg-[radial-gradient(circle,rgba(0,234,255,0.35)_0%,rgba(0,234,255,0.15)_40%,transparent_70%)] animate-plasma-2 js-pause-target"></div>
+    </div>
+
+
+    <!-- HEADER & MENU -->
+    <header id="main-header" class="fixed w-full top-0 z-50 bg-[#000000]/70 backdrop-blur-xl border-b border-brand-cyan/20 shadow-sm transition-colors duration-300 py-2">
+        <div class="w-full px-6 md:px-8 lg:px-12 flex justify-between items-center">
+            <a href="#" class="flex items-center group relative z-10" aria-label="Retour à l'accueil">
+                <img src="logo.png" alt="Logo Nathan Soulé" class="h-[75px] w-auto group-hover:scale-105 transition-transform duration-300" onerror="this.src='https://placehold.co/200x80/000000/00EAFF?text=LOGO&font=Orbitron'">
+            </a>
+            
+            <nav class="hidden md:flex items-center space-x-14" aria-label="Navigation principale">
+                <a href="#realisations" class="nav-link text-sm font-share tracking-widest uppercase text-white">Réalisations</a>
+                <a href="#a-propos" class="nav-link text-sm font-share tracking-widest uppercase text-white">À propos de moi</a>
+                <a href="#cv" class="nav-link text-sm font-share tracking-widest uppercase text-white">CV</a>
+                <a href="#services" class="nav-link text-sm font-share tracking-widest uppercase text-white">Services</a>
+                <a href="#contact" class="btn-scan border border-brand-cyan text-brand-cyan px-6 py-2.5 text-sm font-share tracking-widest uppercase hover:bg-brand-cyan/10 transition-all shadow-[0_0_15px_rgba(0,234,255,0.15)] focus-visible:bg-brand-cyan/10">Me Contacter</a>
+            </nav>
+            <button id="mobile-menu-btn" class="md:hidden text-brand-cyan p-2" aria-label="Ouvrir le menu mobile" aria-expanded="false">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+            </button>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-[#000000]/95 backdrop-blur-xl border-t border-brand-cyan/20 absolute w-full shadow-2xl" role="navigation">
+            <div class="px-4 pt-2 pb-6 space-y-2">
+                <a href="#realisations" class="mobile-nav-link block px-3 py-2 font-share text-white tracking-widest uppercase hover:text-brand-cyan">Réalisations</a>
+                <a href="#a-propos" class="mobile-nav-link block px-3 py-2 font-share text-white tracking-widest uppercase hover:text-brand-cyan">À propos de moi</a>
+                <a href="#cv" class="mobile-nav-link block px-3 py-2 font-share text-white tracking-widest uppercase hover:text-brand-cyan">CV</a>
+                <a href="#services" class="mobile-nav-link block px-3 py-2 font-share text-white tracking-widest uppercase hover:text-brand-cyan">Services</a>
+                <a href="#contact" class="mobile-nav-link block px-3 py-2 bg-brand-cyan/10 border border-brand-cyan text-brand-cyan font-share text-center tracking-widest uppercase mt-4">Me Contacter</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <main id="accueil" class="relative min-h-screen flex items-center z-10 px-6 md:px-12 lg:px-24 pt-20">
+        <div class="w-full max-w-7xl mx-auto flex justify-center">
+            <div class="text-center max-w-2xl">
+                <h1 class="text-3xl md:text-5xl font-heading font-black text-white tracking-widest mb-6 uppercase leading-tight drop-shadow-2xl">
+                    Construisons <br> Votre <br>
+                    Vision <span class="text-transparent neon-glitch pb-2 inline-block" style="-webkit-text-stroke: 1px #00EAFF; text-shadow: 0 0 15px rgba(0, 234, 255, 0.3);">Digitale.</span>
+                </h1>
+                <p class="text-lg md:text-xl text-gray-200 font-normal mb-10 mx-auto max-w-xl leading-relaxed" id="hero-typewriter" data-text="Étudiant en Bachelor Chef de Projet Digital et jeune freelance passionné. J'allie stratégie, créativité et technologie pour concevoir des expériences digitales impactantes.">
+                    <span class="typewriter-cursor"></span>
+                </p>
+                <div class="flex flex-col sm:flex-row gap-5 justify-center">
+                    <a href="#realisations" class="btn-scan border border-white/30 px-8 py-4 text-white font-share tracking-widest text-sm text-center hover:bg-white/10 transition-colors focus-visible:bg-white/10">DÉCOUVRIR</a>
+                    <a href="#contact" class="btn-scan border border-brand-cyan bg-brand-cyan/10 px-8 py-4 text-brand-cyan font-share tracking-widest text-sm text-center hover:bg-brand-cyan hover:text-[#000000] transition-all btn-breathe-neon focus-visible:bg-brand-cyan focus-visible:text-[#000000]">ME CONTACTER</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- SECTION : RÉALISATIONS -->
+    <section id="realisations" class="relative z-10 w-full px-6 md:px-12 lg:px-16 xl:px-20 pt-24 pb-20 min-h-[80vh] flex flex-col justify-center overflow-hidden">
+        
+        <div class="mb-8 md:mb-12 flex flex-col md:flex-row items-start md:items-end justify-start gap-2 md:gap-6 border-b border-brand-cyan/40 pb-4 reveal">
+            <h2 class="text-2xl md:text-4xl font-heading font-bold text-white tracking-[0.15em] uppercase">Projets_Réalisés</h2>
+            <div class="hidden md:flex text-gray-400 text-sm font-share mb-1" aria-hidden="true"><span>Glisser pour explorer &rarr;</span></div>
+            <div class="flex md:hidden text-brand-cyan text-xs font-share mb-1 animate-pulse" aria-hidden="true"><span>Glisser pour explorer &rarr;</span></div>
+        </div>
+
+        <div id="projects-container" class="flex overflow-x-auto items-stretch gap-8 w-full pt-6 pb-8 hide-native-scrollbar px-4 reveal delay-100" role="list" aria-label="Liste de mes projets">
+            
+            <!-- Carte 0 (Nouvelle) : ESTEY -->
+            <article class="shrink-0 w-[85vw] md:w-[350px] lg:w-[380px] h-[480px] relative group overflow-hidden cyber-panel card-tilt" role="listitem">
+                <div class="card-shine"></div>
+                <img src="ESTEY.jpg" alt="Marque de vêtements ESTEY" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover grayscale-[60%] opacity-30 group-hover:grayscale-0 group-hover:opacity-60 group-hover:scale-105 transition-all duration-700 mix-blend-luminosity group-hover:mix-blend-normal pointer-events-none z-0" onerror="this.src='https://placehold.co/800x500/072B37/00EAFF?text=ESTEY&font=Orbitron'">
+                <div class="absolute inset-0 bg-gradient-to-t from-[#000000] via-brand-dark/80 to-transparent pointer-events-none z-10" aria-hidden="true"></div>
+                <div class="absolute inset-0 p-6 md:p-8 flex flex-col justify-end z-20 pointer-events-none">
+                    <div class="absolute top-6 left-6"><span class="text-brand-cyan font-share text-xs font-bold px-2 py-1 border border-brand-cyan/40 uppercase shadow-[0_0_10px_rgba(0,234,255,0.2)]">PROJET PRO</span></div>
+                    <div class="absolute top-6 right-6"><span class="text-brand-cyan font-share text-xs font-bold px-2 py-1 border border-brand-cyan/40 uppercase shadow-[0_0_10px_rgba(0,234,255,0.2)]">STAGE</span></div>
+                    <h3 class="text-lg md:text-xl font-heading font-black text-white uppercase tracking-widest leading-tight transition-colors drop-shadow-lg mb-2">ESTEY</h3>
+                    <p class="text-brand-cyan font-share text-[11px] tracking-widest mb-4 uppercase leading-tight">// Communication & CONTENT CREATOR</p>
+                    <div class="overflow-hidden">
+                        <p class="pb-6 text-gray-300 text-sm font-normal leading-relaxed text-justify">Lancement d'une marque de vêtements inspirée de l'art de vivre girondin. Création de l'univers visuel et de la stratégie de communication.</p>
+                        <div class="block text-center bg-[#000000]/60 border border-[#FF003C]/50 text-[#FF003C] font-share text-[13px] font-bold uppercase tracking-widest px-6 py-3 w-full cursor-not-allowed shadow-[inset_0_0_10px_rgba(255,0,60,0.2)] btn-locked-red relative pointer-events-auto overflow-hidden" aria-disabled="true">
+                            <span class="text-[#FF003C] animate-pulse relative z-20 font-black" style="text-shadow: 0 0 12px rgba(255,0,60,0.9), 0 0 24px rgba(255,0,60,0.5);">/// MISSION EN COURS ///</span>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Carte 1 -->
+            <article class="shrink-0 w-[85vw] md:w-[350px] lg:w-[380px] h-[480px] relative group overflow-hidden cyber-panel card-tilt" role="listitem">
+                <div class="card-shine"></div>
+                <img src="La_bonne_portion_bordeaux.jpg" alt="La Bonne Portion Bordeaux" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover grayscale-[60%] opacity-30 group-hover:grayscale-0 group-hover:opacity-60 group-hover:scale-105 transition-all duration-700 mix-blend-luminosity group-hover:mix-blend-normal pointer-events-none z-0" onerror="this.src='https://placehold.co/800x500/072B37/00EAFF?text=La+Bonne+Portion&font=Orbitron'">
+                <div class="absolute inset-0 bg-gradient-to-t from-[#000000] via-brand-dark/80 to-transparent pointer-events-none z-10" aria-hidden="true"></div>
+                <div class="absolute inset-0 p-6 md:p-8 flex flex-col justify-end z-20 pointer-events-none">
+                    <div class="absolute top-6 left-6"><span class="text-brand-cyan font-share text-xs font-bold px-2 py-1 border border-brand-cyan/40 uppercase shadow-[0_0_10px_rgba(0,234,255,0.2)]">PROJET PRO</span></div>
+                    <div class="absolute top-6 right-6"><span class="text-brand-cyan font-share text-xs font-bold px-2 py-1 border border-brand-cyan/40 uppercase shadow-[0_0_10px_rgba(0,234,255,0.2)]">OP-1</span></div>
+                    <h3 class="text-lg md:text-xl font-heading font-black text-white uppercase tracking-widest leading-tight transition-colors drop-shadow-lg mb-2">La Bonne Portion</h3>
+                    <p class="text-brand-cyan font-share text-xs tracking-widest mb-4 uppercase">// Refonte Web, Identité & Stratégie</p>
+                    <div class="overflow-hidden">
+                        <p class="pb-6 text-gray-300 text-sm font-normal leading-relaxed text-justify">Refonte de l’identité visuelle et conception d'un site web pour moderniser ce restaurant. Création de contenu sur les réseaux sociaux.</p>
+                        <div class="block text-center bg-[#000000]/60 border border-[#FF003C]/50 text-[#FF003C] font-share text-[13px] font-bold uppercase tracking-widest px-6 py-3 w-full cursor-not-allowed shadow-[inset_0_0_10px_rgba(255,0,60,0.2)] btn-locked-red relative pointer-events-auto overflow-hidden" aria-disabled="true">
+                            <span class="text-[#FF003C] animate-pulse relative z-20 font-black" style="text-shadow: 0 0 12px rgba(255,0,60,0.9), 0 0 24px rgba(255,0,60,0.5);">/// MISSION EN COURS ///</span>
+                        </div>
+                    </div>
+                </div>
+            </article>
+            
+            <!-- Carte 2 -->
+            <article class="shrink-0 w-[85vw] md:w-[350px] lg:w-[380px] h-[480px] relative group overflow-hidden cyber-panel card-tilt" role="listitem">
+                <div class="card-shine"></div>
+                <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=800&h=500&fit=crop" alt="Code CSS sur écran" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover grayscale-[60%] opacity-30 group-hover:grayscale-0 group-hover:opacity-60 group-hover:scale-105 transition-all duration-700 mix-blend-luminosity group-hover:mix-blend-normal pointer-events-none z-0">
+                <div class="absolute inset-0 bg-gradient-to-t from-[#000000] via-brand-dark/80 to-transparent z-10 pointer-events-none" aria-hidden="true"></div>
+                <div class="absolute inset-0 p-6 md:p-8 flex flex-col justify-end z-20 pointer-events-none">
+                    <div class="absolute top-6 left-6"><span class="text-brand-cyan font-share text-xs font-bold px-2 py-1 border border-brand-cyan/40 uppercase">PROJET PRO</span></div>
+                    <div class="absolute top-6 right-6"><span class="text-brand-cyan font-share text-xs font-bold px-2 py-1 border border-brand-cyan/40 uppercase">OP-2</span></div>
+                    <h3 class="text-lg md:text-xl font-heading font-black text-white uppercase tracking-widest leading-tight mb-2">Mon Portfolio</h3>
+                    <p class="text-brand-cyan font-share text-xs tracking-widest mb-4 uppercase">// Design & Front-End</p>
+                    <div class="overflow-hidden">
+                        <p class="pb-6 text-gray-300 text-sm font-normal leading-relaxed text-justify">Création d'une direction artistique pour le design et le développement sur-mesure de mon portfolio en HTML, CSS et Java Script.</p>
+                        <button class="border border-brand-cyan/50 text-brand-cyan font-share text-[13px] uppercase tracking-widest px-6 py-3 hover:bg-brand-cyan/20 transition-all w-full flex items-center justify-center gap-3 pointer-events-auto" aria-current="page"><span class="w-2 h-2 rounded-full bg-green-500 shadow-[0_0_8px_#22c55e] animate-pulse"></span>SYSTÈME ACTIF</button>
+                    </div>
+                </div>
+            </article>
+            
+            <!-- Carte 3 -->
+            <article class="shrink-0 w-[85vw] md:w-[350px] lg:w-[380px] h-[480px] relative group overflow-hidden cyber-panel card-tilt" role="listitem">
+                <div class="card-shine"></div>
+                <img src="https://images.unsplash.com/photo-1524758631624-e2822e304c36?q=80&w=800&h=500&fit=crop" alt="Intérieur moderne" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover grayscale-[60%] opacity-30 group-hover:grayscale-0 group-hover:opacity-60 group-hover:scale-105 transition-all duration-700 mix-blend-luminosity group-hover:mix-blend-normal z-0 pointer-events-none">
+                <div class="absolute inset-0 bg-gradient-to-t from-[#000000] via-brand-dark/80 to-transparent z-10 pointer-events-none" aria-hidden="true"></div>
+                <div class="absolute inset-0 p-6 md:p-8 flex flex-col justify-end z-20 pointer-events-none">
+                    <div class="absolute top-6 left-6"><span class="text-brand-cyan font-share text-xs font-bold px-2 py-1 border border-brand-cyan/40 uppercase">PROJET PRO</span></div>
+                    <div class="absolute top-6 right-6"><span class="text-brand-cyan font-share text-xs font-bold px-2 py-1 border border-brand-cyan/40 uppercase">OP-3</span></div>
+                    <h3 class="text-lg md:text-xl font-heading font-black text-white uppercase tracking-widest leading-tight mb-2">Espace des Teintes</h3>
+                    <p class="text-brand-cyan font-share text-xs tracking-widest mb-4 uppercase">// Site web & Direction Artistique</p>
+                    <div class="overflow-hidden">
+                        <p class="pb-6 text-gray-300 text-sm font-normal leading-relaxed text-justify">Traduction d’un savoir-faire en décoration d’intérieur en un univers de marque complet et coloré, avec le déploiement d’un site vitrine WordPress.</p>
+                        <a href="https://espace-des-teintes.fr/" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center text-center border border-brand-cyan/50 text-brand-cyan font-share text-[13px] uppercase px-6 py-3 hover:bg-brand-cyan/20 w-full pointer-events-auto focus-visible:bg-brand-cyan/20">INITIALISER</a>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Carte 4 : Richard Mille -->
+            <article class="shrink-0 w-[85vw] md:w-[350px] lg:w-[380px] h-[480px] relative group overflow-hidden cyber-panel card-tilt" role="listitem">
+                <div class="card-shine"></div>
+                <img src="Richar_Mille_x_Garmin.jpg" alt="Montre de luxe" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover grayscale-[60%] opacity-30 group-hover:grayscale-0 group-hover:opacity-60 group-hover:scale-105 transition-all duration-700 mix-blend-luminosity z-0 pointer-events-none" onerror="this.src='https://images.unsplash.com/photo-1523170335258-f5ed11844a49?q=80&w=800&h=500&fit=crop'">
+                <div class="absolute inset-0 bg-gradient-to-t from-[#000000] via-brand-dark/80 to-transparent z-10 pointer-events-none" aria-hidden="true"></div>
+                <div class="absolute inset-0 p-6 md:p-8 flex flex-col justify-end z-20 pointer-events-none">
+                    <div class="absolute top-6 left-6"><span class="text-brand-cyan font-share text-xs font-bold px-2 py-1 border border-brand-cyan/40 uppercase">PROJET D'ÉCOLE</span></div>
+                    <div class="absolute top-6 right-6"><span class="text-brand-cyan font-share text-xs font-bold px-2 py-1 border border-brand-cyan/40 uppercase">OP-4</span></div>
+                    <h3 class="text-lg md:text-xl font-heading font-black text-white uppercase tracking-widest mb-2">Richard Mille x Garmin</h3>
+                    <p class="text-brand-cyan font-share text-xs tracking-widest mb-4 uppercase">// Stratégie et Création</p>
+                    <div class="overflow-hidden">
+                        <p class="pb-6 text-gray-300 text-sm font-normal leading-relaxed text-justify">Création d’une identité de marque et d’un plan de communication pour un événement Hyrox mêlant technologie et horlogerie haut de gamme.</p>
+                        <a href="https://drive.google.com/file/d/1UwFSgaHg-md33ugVuct26DGmZ9lMn5p9/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center text-center border border-brand-cyan/50 text-brand-cyan font-share text-[13px] uppercase px-6 py-3 hover:bg-brand-cyan/20 w-full pointer-events-auto focus-visible:bg-brand-cyan/20">INITIALISER</a>
+                    </div>
+                </div>
+            </article>
+            
+            <!-- Carte 5 : Moulin -->
+            <article class="shrink-0 w-[85vw] md:w-[350px] lg:w-[380px] h-[480px] relative group overflow-hidden cyber-panel card-tilt" role="listitem">
+                <div class="card-shine"></div>
+                <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?q=80&w=800&h=500&fit=crop" alt="Boulangerie artisanale" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover grayscale-[60%] opacity-30 group-hover:grayscale-0 group-hover:opacity-60 group-hover:scale-105 transition-all duration-700 mix-blend-luminosity z-0 pointer-events-none">
+                <div class="absolute inset-0 bg-gradient-to-t from-[#000000] via-brand-dark/80 to-transparent z-10 pointer-events-none" aria-hidden="true"></div>
+                <div class="absolute inset-0 p-6 md:p-8 flex flex-col justify-end z-20 pointer-events-none">
+                    <div class="absolute top-6 left-6"><span class="text-brand-cyan font-share text-xs font-bold px-2 py-1 border border-brand-cyan/40 uppercase">PROJET D'ÉCOLE</span></div>
+                    <div class="absolute top-6 right-6"><span class="text-brand-cyan font-share text-xs font-bold px-2 py-1 border border-brand-cyan/40 uppercase">OP-5</span></div>
+                    <h3 class="text-lg md:text-xl font-heading font-black text-white uppercase tracking-widest mb-2">MOULIN JULLIEN</h3>
+                    <p class="text-brand-cyan font-share text-xs tracking-widest mb-4 uppercase">// Refonte Web, Identité & Stratégie</p>
+                    <div class="overflow-hidden">
+                        <p class="pb-6 text-gray-300 text-sm font-normal leading-relaxed text-justify">Cahier des charges complet : de l'identité visuelle aux maquettes et l'élaboration d'une stratégie marketing et de communication.</p>
+                        <a href="https://drive.google.com/file/d/1KBQ3yqZB5GIfXn4iEObxiMPdRRwkhSjB/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center text-center border border-brand-cyan/50 text-brand-cyan font-share text-[13px] uppercase px-6 py-3 hover:bg-brand-cyan/20 w-full pointer-events-auto focus-visible:bg-brand-cyan/20">INITIALISER</a>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Carte 6 : Volaris -->
+            <article class="shrink-0 w-[85vw] md:w-[350px] lg:w-[380px] h-[480px] relative group overflow-hidden cyber-panel card-tilt" role="listitem">
+                <div class="card-shine"></div>
+                <img src="https://images.unsplash.com/photo-1508614589041-895b88991e3e?q=80&w=800&h=500&fit=crop" alt="Voiture dans le futur" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover grayscale-[60%] opacity-30 group-hover:grayscale-0 group-hover:opacity-60 group-hover:scale-105 transition-all duration-700 mix-blend-luminosity z-0 pointer-events-none">
+                <div class="absolute inset-0 bg-gradient-to-t from-[#000000] via-brand-dark/80 to-transparent z-10 pointer-events-none" aria-hidden="true"></div>
+                <div class="absolute inset-0 p-6 md:p-8 flex flex-col justify-end z-20 pointer-events-none">
+                    <div class="absolute top-6 left-6"><span class="text-brand-cyan font-share text-xs font-bold px-2 py-1 border border-brand-cyan/40">PROJET D'ÉCOLE</span></div>
+                    <div class="absolute top-6 right-6"><span class="text-brand-cyan font-share text-xs font-bold px-2 py-1 border border-brand-cyan/40">OP-6</span></div>
+                    <h3 class="text-lg md:text-xl font-heading font-black text-white uppercase tracking-widest mb-2">VOLARIS</h3>
+                    <p class="text-brand-cyan font-share text-xs tracking-widest mb-4 uppercase">// Étude & Concept</p>
+                    <div class="overflow-hidden">
+                        <p class="pb-6 text-gray-300 text-sm font-normal leading-relaxed text-justify">Pour notre premier projet d'étude, nous avons créé un concept de marque de taxis volants, du design à l'étude de marché et la stratégie.</p>
+                        <a href="https://drive.google.com/file/d/1gMxMBg6wgmP8_izagiqGkMDVRIiYF4XS/view" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center text-center border border-brand-cyan/50 text-brand-cyan font-share text-[13px] uppercase px-6 py-3 hover:bg-brand-cyan/20 w-full pointer-events-auto focus-visible:bg-brand-cyan/20">INITIALISER</a>
+                    </div>
+                </div>
+            </article>
+            
+            <!-- Carte 7 : NutriJoy -->
+            <article class="shrink-0 w-[85vw] md:w-[350px] lg:w-[380px] h-[480px] relative group overflow-hidden cyber-panel card-tilt" role="listitem">
+                <div class="card-shine"></div>
+                <img src="https://images.unsplash.com/photo-1498837167922-ddd27525d352?q=80&w=800&h=500&fit=crop" alt="Application Nutrition" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover grayscale-[60%] opacity-30 group-hover:grayscale-0 group-hover:opacity-60 group-hover:scale-105 transition-all duration-700 mix-blend-luminosity z-0 pointer-events-none">
+                <div class="absolute inset-0 bg-gradient-to-t from-[#000000] via-brand-dark/80 to-transparent z-10 pointer-events-none" aria-hidden="true"></div>
+                <div class="absolute inset-0 p-6 md:p-8 flex flex-col justify-end z-20 pointer-events-none">
+                    <div class="absolute top-6 left-6"><span class="text-brand-cyan font-share text-xs font-bold px-2 py-1 border border-brand-cyan/40">PROJET D'ÉCOLE</span></div>
+                    <div class="absolute top-6 right-6"><span class="text-brand-cyan font-share text-xs font-bold px-2 py-1 border border-brand-cyan/40">OP-7</span></div>
+                    <h3 class="text-lg md:text-xl font-heading font-black text-white uppercase tracking-widest mb-2">NutriJoy</h3>
+                    <p class="text-brand-cyan font-share text-xs tracking-widest mb-4 uppercase">// Com & Design</p>
+                    <div class="overflow-hidden">
+                        <p class="pb-6 text-gray-300 text-sm font-normal leading-relaxed text-justify">Création de supports visuels et d'une stratégie de communication pour un concept d'application de nutrition.</p>
+                        <a href="https://canva.link/xuw8akqd6aa1ydc" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center text-center border border-brand-cyan/50 text-brand-cyan font-share text-[13px] uppercase px-6 py-3 hover:bg-brand-cyan/20 w-full pointer-events-auto focus-visible:bg-brand-cyan/20">INITIALISER</a>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Carte 8 (Podcast Vidéo) -->
+            <article class="shrink-0 w-[85vw] md:w-[350px] lg:w-[380px] h-[480px] relative group overflow-hidden cyber-panel card-tilt" role="listitem">
+                <div class="card-shine"></div>
+                <img src="nathan-soulé-passion-vidéo-24.jpg" alt="Podcast 2025" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover grayscale-[60%] opacity-30 group-hover:grayscale-0 group-hover:opacity-60 group-hover:scale-105 transition-all duration-700 mix-blend-luminosity z-0 pointer-events-none" onerror="this.src='https://images.unsplash.com/photo-1516280440502-3c407ac0a113?q=80&w=800&h=500&fit=crop'">
+                <div class="absolute inset-0 bg-gradient-to-t from-[#000000] via-brand-dark/80 to-transparent z-10 pointer-events-none" aria-hidden="true"></div>
+                <div class="absolute inset-0 p-6 md:p-8 flex flex-col justify-end z-20 pointer-events-none">
+                    <div class="absolute top-6 left-6"><span class="text-brand-cyan font-share text-xs font-bold px-2 py-1 border border-brand-cyan/40">PROJET D'ÉCOLE</span></div>
+                    <div class="absolute top-6 right-6"><span class="text-brand-cyan font-share text-xs font-bold px-2 py-1 border border-brand-cyan/40">OP-8</span></div>
+                    <h3 class="text-lg md:text-xl font-heading font-black text-white uppercase tracking-widest mb-2">Podcast 2025</h3>
+                    <p class="text-brand-cyan font-share text-xs tracking-widest mb-4 uppercase">// Production Vidéo</p>
+                    <div class="overflow-hidden">
+                        <p class="pb-6 text-gray-300 text-sm font-normal leading-relaxed text-justify">Réalisation d'une vidéo à sujet libre : expertise complète en écriture, mise en scène, tournage et montage.</p>
+                        <button onclick="openVideoModal('8A8Mh3R7Jgo')" class="w-full flex items-center justify-center gap-3 border border-brand-cyan/50 text-brand-cyan font-share text-[13px] uppercase px-6 py-3 hover:bg-brand-cyan/20 pointer-events-auto focus-visible:bg-brand-cyan/20">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg> INITIALISER
+                        </button>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Carte 9 (Podcast Audio) -->
+            <article class="shrink-0 w-[85vw] md:w-[350px] lg:w-[380px] h-[480px] relative group overflow-hidden cyber-panel card-tilt" role="listitem">
+                <div class="card-shine"></div>
+                <img src="sabots_seconde_chance.jpg" alt="Sabots Podcast" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover grayscale-[60%] opacity-30 group-hover:grayscale-0 group-hover:opacity-60 group-hover:scale-105 transition-all duration-700 mix-blend-luminosity z-0 pointer-events-none" onerror="this.src='https://images.unsplash.com/photo-1590602847861-f357a9332bbc?q=80&w=800&h=500&fit=crop'">
+                <div class="absolute inset-0 bg-gradient-to-t from-[#000000] via-brand-dark/80 to-transparent z-10 pointer-events-none" aria-hidden="true"></div>
+                <div class="absolute inset-0 p-6 md:p-8 flex flex-col justify-end z-20 pointer-events-none">
+                    <div class="absolute top-6 left-6"><span class="text-brand-cyan font-share text-xs font-bold px-2 py-1 border border-brand-cyan/40">PROJET D'ÉCOLE</span></div>
+                    <div class="absolute top-6 right-6"><span class="text-brand-cyan font-share text-xs font-bold px-2 py-1 border border-brand-cyan/40">OP-9</span></div>
+                    <h3 class="text-lg md:text-xl font-heading font-black text-white uppercase tracking-widest mb-2">Podcast 2026</h3>
+                    <p class="text-brand-cyan font-share text-xs tracking-widest mb-4 uppercase">// Concours National</p>
+                    <div class="overflow-hidden">
+                        <p class="pb-6 text-gray-300 text-sm font-normal leading-relaxed text-justify">Écriture, organisation, tournage et montage d'un podcast audio dans le cadre d'un concours national où j'ai remporté la première place sur mon campus.</p>
+                        <button onclick="openAudioModal('6QbVPFuygyo')" class="w-full flex items-center justify-center gap-3 border border-brand-cyan/50 text-brand-cyan font-share text-[13px] uppercase px-6 py-3 hover:bg-brand-cyan/20 pointer-events-auto focus-visible:bg-brand-cyan/20">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"></path></svg> INITIALISER
+                        </button>
+                    </div>
+                </div>
+            </article>
+
+            <div class="shrink-0 w-[4px] md:w-[40px]" aria-hidden="true"></div>
+        </div>
+
+        <!-- CONTROLES DU SCROLL -->
+        <div class="flex items-center gap-3 mt-6 px-4 md:px-0 reveal delay-200">
+            <button id="scroll-left-btn" class="text-brand-cyan/60 hover:text-brand-cyan hover:scale-110 transition-all shrink-0 p-1 focus:outline-none focus-visible:text-brand-cyan" aria-label="Défiler les projets à gauche">
+                <svg class="w-5 h-5 md:w-6 md:h-6 drop-shadow-[0_0_5px_rgba(0,234,255,0.5)]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M15 19l-7-7 7-7"></path></svg>
+            </button>
+            <div id="projects-track" class="flex-1 h-2 md:h-2.5 bg-brand-cyan/20 relative cursor-pointer" role="scrollbar" aria-orientation="horizontal" aria-label="Progression des projets">
+                <div id="projects-progress" class="absolute top-0 left-0 h-full w-[30%] md:w-[15%] bg-brand-cyan shadow-[0_0_8px_#00EAFF] cursor-grab active:cursor-grabbing touch-none will-change-transform"></div>
+            </div>
+            <button id="scroll-right-btn" class="text-brand-cyan/60 hover:text-brand-cyan hover:scale-110 transition-all shrink-0 p-1 focus:outline-none focus-visible:text-brand-cyan" aria-label="Défiler les projets à droite">
+                <svg class="w-5 h-5 md:w-6 md:h-6 drop-shadow-[0_0_5px_rgba(0,234,255,0.5)]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M9 5l7 7-7 7"></path></svg>
+            </button>
+        </div>
+    </section>
+
+    <!-- SECTION : À PROPOS DE MOI -->
+    <section id="a-propos" class="relative z-10 w-full py-24">
+        
+        <div class="absolute top-0 right-0 w-full max-w-[900px] aspect-square rounded-full bg-[radial-gradient(circle_at_center,rgba(0,234,255,0.08)_0%,transparent_60%)] pointer-events-none translate-x-1/4 -translate-y-1/4 js-pause-target" aria-hidden="true"></div>
+        <div class="absolute bottom-0 left-0 w-full max-w-[900px] aspect-square rounded-full bg-[radial-gradient(circle_at_center,rgba(168,55,214,0.08)_0%,transparent_60%)] pointer-events-none -translate-x-1/4 translate-y-1/4 js-pause-target" aria-hidden="true"></div>
+
+        <div class="w-full max-w-7xl mx-auto px-6 md:px-12 lg:px-24">
+            
+            <!-- PORTRAIT & INTRO -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-32">
+                <div class="order-2 lg:order-1 flex flex-col justify-center reveal-left">
+                    <div class="inline-block px-4 py-2 mb-6 border border-brand-cyan/50 text-brand-cyan font-share text-xs tracking-widest uppercase shadow-[0_0_10px_rgba(0,234,255,0.1)] w-max">
+                        // À PROPOS DE MOI
+                    </div>
+                    
+                    <h2 class="text-4xl md:text-6xl font-heading font-black text-white uppercase tracking-widest leading-none mb-8">
+                        Nathan <br><span class="text-transparent" style="-webkit-text-stroke: 1.5px #A837D6; text-shadow: 0 0 20px rgba(168, 55, 214, 0.4);">Soulé</span>
+                    </h2>
+                    
+                    <div class="border-l-2 border-brand-cyan pl-6 mb-10">
+                        <p class="text-gray-300 text-lg md:text-xl font-normal leading-relaxed">
+                            Je m’appelle Nathan, j’ai 20 ans et je suis actuellement en deuxième année de <span class="text-white font-bold tracking-wide">Bachelor Chef de Projet Digital</span> à Digital Campus Bordeaux.
+                        </p>
+                    </div>
+                    
+                    <div class="flex flex-col sm:flex-row flex-wrap gap-4">
+                        <div class="border border-brand-cyan/40 bg-brand-cyan/10 px-5 py-3 text-brand-cyan font-share text-xs tracking-widest uppercase shadow-[0_0_10px_rgba(0,234,255,0.1)] flex items-center justify-center">
+                            BORDEAUX
+                        </div>
+                        <div class="border border-brand-cyan/40 bg-brand-cyan/10 px-5 py-3 text-brand-cyan font-share text-xs tracking-widest uppercase shadow-[0_0_10px_rgba(0,234,255,0.1)] flex items-center justify-center">
+                            PERMIS B
+                        </div>
+                        <div class="border border-brand-cyan/40 bg-brand-cyan/10 px-5 py-3 text-brand-cyan font-share text-xs tracking-widest uppercase shadow-[0_0_10px_rgba(0,234,255,0.1)] flex items-center justify-center">
+                            BILINGUE (ESP)
+                        </div>
+                        <button onclick="copyToClipboard('06 59 07 50 73', 'Numéro copié !')" class="border border-brand-cyan/40 bg-brand-cyan/10 px-5 py-3 text-brand-cyan font-share text-xs tracking-widest uppercase shadow-[0_0_10px_rgba(0,234,255,0.1)] flex items-center justify-center cursor-pointer hover:bg-brand-cyan/20 transition-colors focus-visible:bg-brand-cyan/20" title="Copier le numéro">
+                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"></path></svg>
+                            06 59 07 50 73
+                        </button>
+                        <button onclick="copyToClipboard('nathansoule33@gmail.com', 'E-mail copié !')" class="border border-brand-cyan/40 bg-brand-cyan/10 px-5 py-3 text-brand-cyan font-share text-xs tracking-widest lowercase shadow-[0_0_10px_rgba(0,234,255,0.1)] flex items-center justify-center cursor-pointer hover:bg-brand-cyan/20 transition-colors focus-visible:bg-brand-cyan/20" title="Copier l'e-mail">
+                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                            nathansoule33@gmail.com
+                        </button>
+                    </div>
+                </div>
+
+                <div class="order-1 lg:order-2 flex justify-center lg:justify-end reveal-right" aria-hidden="true">
+                    <div class="relative flex items-center justify-center mt-8 md:mt-0 js-pause-target">
+                        <div class="absolute -bottom-8 -left-4 md:-bottom-16 md:-left-16 w-44 h-44 md:w-56 md:h-56 z-0 opacity-80">
+                            <div class="absolute inset-0 border border-brand-purple rounded-full animate-[spin_12s_linear_infinite] opacity-60 mix-blend-screen"></div>
+                            <div class="absolute inset-3 border-2 border-dashed border-brand-cyan rounded-full animate-[spin_18s_linear_infinite_reverse] opacity-30 mix-blend-screen"></div>
+                            <div class="absolute inset-5 rounded-full border border-brand-purple/40 shadow-[0_0_20px_rgba(168,55,214,0.15)] bg-transparent"></div>
+                        </div>
+
+                        <div class="relative w-64 h-64 md:w-80 md:h-80 group cursor-default z-10">
+                            <div class="absolute inset-0 border border-brand-cyan rounded-full animate-[spin_10s_linear_infinite] opacity-50 mix-blend-screen"></div>
+                            <div class="absolute inset-4 border-2 border-dashed border-brand-purple rounded-full animate-[spin_15s_linear_infinite_reverse] opacity-30 mix-blend-screen"></div>
+                            <div class="absolute inset-6 rounded-full border-2 border-brand-cyan/50 shadow-[0_0_30px_rgba(0,234,255,0.2)] bg-transparent"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PARCOURS FRISE -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 mb-32 items-start">
+                
+                <div class="lg:col-span-7 reveal delay-100">
+                    <div class="text-brand-purple font-share text-xs tracking-widest mb-2">&gt;_ HISTORIQUE</div>
+                    <h3 class="text-3xl md:text-5xl font-heading font-black text-white uppercase tracking-wider mb-10">
+                        Mon <span class="text-transparent" style="-webkit-text-stroke: 1px #A837D6; filter: drop-shadow(0 0 10px rgba(168,55,214,0.3));">Parcours</span>
+                    </h3>
+                    
+                    <div class="border-l border-white/20 pl-8 ml-2 relative" role="list">
+                        
+                        <div class="relative pb-10 group/year" role="listitem">
+                            <div class="absolute -left-[37px] w-2 h-2 bg-black border border-brand-cyan rounded-full top-2 shadow-[0_0_8px_rgba(0,234,255,0.8)] group-hover/year:bg-brand-cyan transition-colors duration-300"></div>
+                            <h3 class="text-2xl font-heading font-black text-transparent mb-5 transition-colors duration-300" style="-webkit-text-stroke: 1px #00EAFF;">2023</h3>
+                            
+                            <div class="space-y-6">
+                                <div class="hover:translate-x-2 transition-transform duration-300 cursor-default">
+                                    <h4 class="text-white font-bold text-sm md:text-base uppercase tracking-wider mb-1 transition-colors">BAC STMG</h4>
+                                    <p class="text-gray-500 font-share text-xs tracking-widest uppercase">Lycée Odilon Redon</p>
+                                </div>
+                                <div class="hover:translate-x-2 transition-transform duration-300 cursor-default">
+                                    <h4 class="text-white font-bold text-sm md:text-base uppercase tracking-wider mb-1 transition-colors">Saisonnier</h4>
+                                    <p class="text-gray-500 font-share text-xs tracking-widest uppercase">Domaine de la Croustille - Hourtin</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="relative pb-10 group/year" role="listitem">
+                            <div class="absolute -left-[37px] w-2 h-2 bg-black border border-brand-cyan rounded-full top-2 shadow-[0_0_8px_rgba(0,234,255,0.8)] group-hover/year:bg-brand-cyan transition-colors duration-300"></div>
+                            <h3 class="text-2xl font-heading font-black text-transparent mb-5 transition-colors duration-300" style="-webkit-text-stroke: 1px #00EAFF;">2024</h3>
+                            
+                            <div class="space-y-6">
+                                <div class="hover:translate-x-2 transition-transform duration-300 cursor-default">
+                                    <h4 class="text-white font-bold text-sm md:text-base uppercase tracking-wider mb-1 transition-colors">BTS NDRC</h4>
+                                    <p class="text-gray-500 font-share text-xs tracking-widest uppercase">Lycée Victor Louis</p>
+                                </div>
+                                <div class="hover:translate-x-2 transition-transform duration-300 cursor-default">
+                                    <h4 class="text-white font-bold text-sm md:text-base uppercase tracking-wider mb-1 transition-colors">Stage Animation Commerciale</h4>
+                                    <p class="text-gray-500 font-share text-xs tracking-widest uppercase">Leclerc Culturel - Lesparre-Médoc</p>
+                                </div>
+                                <div class="hover:translate-x-2 transition-transform duration-300 cursor-default">
+                                    <h4 class="text-white font-bold text-sm md:text-base uppercase tracking-wider mb-1 transition-colors">Saisonnier</h4>
+                                    <p class="text-gray-500 font-share text-xs tracking-widest uppercase">Domaine de la Croustille - Hourtin</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="relative pb-10 group/year" role="listitem">
+                            <div class="absolute -left-[37px] w-2 h-2 bg-black border border-brand-cyan rounded-full top-2 shadow-[0_0_8px_rgba(0,234,255,0.8)] animate-pulse group-hover/year:bg-brand-cyan transition-colors duration-300"></div>
+                            <h3 class="text-2xl font-heading font-black text-transparent mb-5 transition-colors duration-300" style="-webkit-text-stroke: 1px #00EAFF;">2025</h3>
+                            
+                            <div class="space-y-6">
+                                <div class="hover:translate-x-2 transition-transform duration-300 cursor-default">
+                                    <h4 class="text-white font-bold text-sm md:text-base uppercase tracking-wider mb-1 transition-colors">Bachelor Chef de Projet Digital 1ère année</h4>
+                                    <p class="text-gray-500 font-share text-xs tracking-widest uppercase">Digital Campus Bordeaux</p>
+                                </div>
+                                <div class="hover:translate-x-2 transition-transform duration-300 cursor-default">
+                                    <h4 class="text-white font-bold text-sm md:text-base uppercase tracking-wider mb-1 transition-colors">STAGE AGENCE L'ARGENTÉE</h4>
+                                    <p class="text-gray-500 font-share text-xs tracking-widest uppercase">Arcachon</p>
+                                </div>
+                                <div class="hover:translate-x-2 transition-transform duration-300 cursor-default">
+                                    <h4 class="text-white font-bold text-sm md:text-base uppercase tracking-wider mb-1 transition-colors">Saisonnier</h4>
+                                    <p class="text-gray-500 font-share text-xs tracking-widest uppercase">Domaine de la Croustille - Hourtin</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="relative pb-4 group/year" role="listitem">
+                            <div class="absolute -left-[37px] w-2 h-2 bg-black border border-brand-cyan rounded-full top-2 shadow-[0_0_8px_rgba(0,234,255,0.8)] animate-pulse group-hover/year:bg-brand-cyan transition-colors duration-300"></div>
+                            <h3 class="text-2xl font-heading font-black text-transparent mb-5 transition-colors duration-300" style="-webkit-text-stroke: 1px #00EAFF;">2026</h3>
+                            
+                            <div class="space-y-6">
+                                <div class="hover:translate-x-2 transition-transform duration-300 cursor-default">
+                                    <h4 class="text-white font-bold text-sm md:text-base uppercase tracking-wider mb-1 transition-colors">Bachelor Chef de Projet Digital 2ème année</h4>
+                                    <p class="text-gray-500 font-share text-xs tracking-widest uppercase">Digital Campus Bordeaux</p>
+                                </div>
+                                <div class="hover:translate-x-2 transition-transform duration-300 cursor-default">
+                                    <h4 class="text-brand-cyan font-bold text-sm md:text-base uppercase tracking-wider mb-1 transition-colors drop-shadow-[0_0_5px_rgba(0,234,255,0.5)]">Stagiaire responsable communication </h4>
+                                    <p class="text-gray-500 font-share text-xs tracking-widest uppercase">Marque de vêtement ESTEY</p>
+                                </div>
+                                <div class="hover:translate-x-2 transition-transform duration-300 cursor-default">
+                                    <h4 class="text-brand-purple font-bold text-sm md:text-base uppercase tracking-wider mb-1 transition-colors drop-shadow-[0_0_5px_rgba(168,55,214,0.5)]">À la recherche d'une alternance</h4>
+                                    <p class="text-gray-500 font-share text-xs tracking-widest uppercase">Pour la poursuite d'études</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- IMAGES FLOTTANTES -->
+                <div class="lg:col-span-5 hidden lg:flex flex-col items-center relative lg:sticky lg:top-32 z-20" aria-hidden="true">
+                    <div class="flex flex-col gap-6 w-full reveal delay-200">
+                        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] aspect-square bg-[radial-gradient(circle_at_center,rgba(168,55,214,0.06)_0%,transparent_60%)] rounded-full pointer-events-none js-pause-target"></div>
+                        
+                        <div class="w-[254px] h-[338px] relative group self-start ml-4 hover:-translate-y-2 transition-transform duration-500">
+                            <img src="nathan-soulé-vision-digitale-city-skyline.jpg" alt="Skyline City" loading="lazy" decoding="async" class="w-full h-full object-cover shadow-[0_0_30px_rgba(0,234,255,0.15)] transition-all duration-500 border border-brand-cyan/30">
+                        </div>
+                        <div class="w-[254px] h-[338px] relative group self-end mr-4 hover:-translate-y-2 transition-transform duration-500">
+                            <img src="nathan-soulé-photographie-burj-khalifa-dubai-cyberpunk.jpg" alt="Burj Khalifa" loading="lazy" decoding="async" class="w-full h-full object-cover shadow-[0_0_30px_rgba(168,55,214,0.15)] transition-all duration-500 border border-brand-purple/30">
+                        </div>
+                        <div class="w-[254px] h-[338px] relative group self-center hover:-translate-y-2 transition-transform duration-500">
+                            <img src="nathan-soulé-photographie-al-wasl-tower-dubai-retouche-photoshop.jpg" alt="Al Wasl Tower" loading="lazy" decoding="async" class="w-full h-full object-cover shadow-[0_0_30px_rgba(0,234,255,0.2)] transition-all duration-500 border border-brand-cyan/40">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- COMPÉTENCES BARRES -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 mb-32 reveal delay-200">
+                
+                <!-- PANNEAU CRÉA -->
+                <div class="cyber-panel p-8 border-l-4 border-brand-purple reveal-left">
+                    <h4 class="text-brand-purple font-share font-bold text-lg tracking-widest mb-8 uppercase">// HARD SKILLS CRÉA</h4>
+                    <div class="space-y-6">
+                        <div>
+                            <div class="flex justify-between items-end mb-2">
+                                <span class="text-white font-share tracking-wider text-sm"><span class="text-gray-500 mr-2">01</span> PHOTOSHOP</span>
+                                <span class="text-brand-purple font-share text-xs opacity-70">[READY]</span>
+                            </div>
+                            <div class="w-full h-1 bg-gray-800" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"><div class="h-full bg-brand-purple skill-fill shadow-[0_0_10px_#A837D6]" style="--target-width: 90%;"></div></div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between items-end mb-2">
+                                <span class="text-white font-share tracking-wider text-sm"><span class="text-gray-500 mr-2">02</span> ILLUSTRATOR</span>
+                                <span class="text-brand-purple font-share text-xs opacity-70">[READY]</span>
+                            </div>
+                            <div class="w-full h-1 bg-gray-800" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"><div class="h-full bg-brand-purple skill-fill shadow-[0_0_10px_#A837D6]" style="--target-width: 85%;"></div></div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between items-end mb-2">
+                                <span class="text-white font-share tracking-wider text-sm"><span class="text-gray-500 mr-2">03</span> PREMIÈRE PRO</span>
+                                <span class="text-brand-purple font-share text-xs opacity-70">[READY]</span>
+                            </div>
+                            <div class="w-full h-1 bg-gray-800" role="progressbar" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100"><div class="h-full bg-brand-purple skill-fill shadow-[0_0_10px_#A837D6]" style="--target-width: 95%;"></div></div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between items-end mb-2">
+                                <span class="text-white font-share tracking-wider text-sm"><span class="text-gray-500 mr-2">04</span> FIGMA & CANVA</span>
+                                <span class="text-brand-purple font-share text-xs opacity-70">[READY]</span>
+                            </div>
+                            <div class="w-full h-1 bg-gray-800" role="progressbar" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100"><div class="h-full bg-brand-purple skill-fill shadow-[0_0_10px_#A837D6]" style="--target-width: 95%;"></div></div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between items-end mb-2">
+                                <span class="text-white font-share tracking-wider text-sm"><span class="text-gray-500 mr-2">05</span> CAPCUT PRO</span>
+                                <span class="text-brand-purple font-share text-xs opacity-70">[READY]</span>
+                            </div>
+                            <div class="w-full h-1 bg-gray-800" role="progressbar" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100"><div class="h-full bg-brand-purple skill-fill shadow-[0_0_10px_#A837D6]" style="--target-width: 95%;"></div></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PANNEAU WEB -->
+                <div class="cyber-panel p-8 border-l-4 border-brand-cyan reveal-right">
+                    <h4 class="text-brand-cyan font-share font-bold text-lg tracking-widest mb-8 uppercase">// HARD SKILLS WEB</h4>
+                    <div class="space-y-6">
+                        <div>
+                            <div class="flex justify-between items-end mb-2">
+                                <span class="text-white font-share tracking-wider text-sm"><span class="text-gray-500 mr-2">01</span> WEB MARKETING</span>
+                                <span class="text-brand-cyan font-share text-xs opacity-70">[READY]</span>
+                            </div>
+                            <div class="w-full h-1 bg-gray-800" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"><div class="h-full bg-brand-cyan skill-fill shadow-[0_0_10px_#00EAFF]" style="--target-width: 90%;"></div></div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between items-end mb-2">
+                                <span class="text-white font-share tracking-wider text-sm"><span class="text-gray-500 mr-2">02</span> COMMUNICATION</span>
+                                <span class="text-brand-cyan font-share text-xs opacity-70">[READY]</span>
+                            </div>
+                            <div class="w-full h-1 bg-gray-800" role="progressbar" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100"><div class="h-full bg-brand-cyan skill-fill shadow-[0_0_10px_#00EAFF]" style="--target-width: 95%;"></div></div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between items-end mb-2">
+                                <span class="text-white font-share tracking-wider text-sm"><span class="text-gray-500 mr-2">03</span> STRATÉGIE DIGITALE</span>
+                                <span class="text-brand-cyan font-share text-xs opacity-70">[READY]</span>
+                            </div>
+                            <div class="w-full h-1 bg-gray-800" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"><div class="h-full bg-brand-cyan skill-fill shadow-[0_0_10px_#00EAFF]" style="--target-width: 85%;"></div></div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between items-end mb-2">
+                                <span class="text-white font-share tracking-wider text-sm"><span class="text-gray-500 mr-2">04</span> SEO / SEA</span>
+                                <span class="text-brand-cyan font-share text-xs opacity-70">[READY]</span>
+                            </div>
+                            <div class="w-full h-1 bg-gray-800" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"><div class="h-full bg-brand-cyan skill-fill shadow-[0_0_10px_#00EAFF]" style="--target-width: 80%;"></div></div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between items-end mb-2">
+                                <span class="text-white font-share tracking-wider text-sm"><span class="text-gray-500 mr-2">05</span> DÉV. WEB (HTML/CSS)</span>
+                                <span class="text-brand-cyan font-share text-xs opacity-70">[READY]</span>
+                            </div>
+                            <div class="w-full h-1 bg-gray-800" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"><div class="h-full bg-brand-cyan skill-fill shadow-[0_0_10px_#00EAFF]" style="--target-width: 85%;"></div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- UNIVERS ÉTENDU -->
+            <div class="mb-32 reveal delay-300">
+                <div class="text-center mb-12">
+                    <h3 class="text-3xl md:text-5xl font-heading font-black text-white uppercase tracking-wider mb-4">
+                        Univers <span class="text-transparent neon-glitch inline-block" style="-webkit-text-stroke: 1px #00EAFF; text-shadow: 0 0 15px rgba(0, 234, 255, 0.3);">Étendu</span>
+                    </h3>
+                    <p class="text-gray-400 text-base md:text-xl font-normal max-w-3xl mx-auto italic">
+                        "Voyager, créer du contenu sur les réseaux sociaux, découvrir de nouveaux films ou plonger dans les jeux vidéo : c'est ce qui me passionne au quotidien."
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mb-16">
+                    <div class="aspect-square relative overflow-hidden border border-white/10 bg-black/50 flex flex-col items-center justify-center p-4 hover:border-brand-cyan transition-all duration-300 group shadow-lg">
+                        <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=400" alt="Manette de jeu vidéo, streaming" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover opacity-30 group-hover:opacity-60 group-hover:scale-110 transition-all duration-500 grayscale group-hover:grayscale-0">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                        <span class="relative z-10 text-4xl md:text-5xl mb-3 group-hover:scale-125 group-hover:-translate-y-2 transition-transform duration-300" aria-hidden="true">🎮</span>
+                        <h4 class="relative z-10 text-brand-cyan font-bold font-share tracking-widest text-xs md:text-sm uppercase bg-black/60 px-2 py-1">Streaming</h4>
+                    </div>
+                    <div class="aspect-square relative overflow-hidden border border-white/10 bg-black/50 flex flex-col items-center justify-center p-4 hover:border-brand-purple transition-all duration-300 group shadow-lg">
+                        <img src="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?q=80&w=400" alt="Caméra pour le vlog" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover opacity-30 group-hover:opacity-60 group-hover:scale-110 transition-all duration-500 grayscale group-hover:grayscale-0">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                        <span class="relative z-10 text-4xl md:text-5xl mb-3 group-hover:scale-125 group-hover:-translate-y-2 transition-transform duration-300" aria-hidden="true">📹</span>
+                        <h4 class="relative z-10 text-brand-purple font-bold font-share tracking-widest text-xs md:text-sm uppercase bg-black/60 px-2 py-1">Vlog & Blog</h4>
+                    </div>
+                    <div class="aspect-square relative overflow-hidden border border-white/10 bg-black/50 flex flex-col items-center justify-center p-4 hover:border-brand-cyan transition-all duration-300 group shadow-lg">
+                        <img src="https://images.unsplash.com/photo-1555421689-491a97ff2040?q=80&w=400" alt="Smartphone avec notifications réseaux sociaux" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover opacity-30 group-hover:opacity-60 group-hover:scale-110 transition-all duration-500 grayscale group-hover:grayscale-0">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                        <span class="relative z-10 text-4xl md:text-5xl mb-3 group-hover:scale-125 group-hover:-translate-y-2 transition-transform duration-300" aria-hidden="true">📱</span>
+                        <h4 class="relative z-10 text-brand-cyan font-bold font-share tracking-widest text-xs md:text-sm uppercase bg-black/60 px-2 py-1">Réseaux Soc.</h4>
+                    </div>
+                    <div class="aspect-square relative overflow-hidden border border-white/10 bg-black/50 flex flex-col items-center justify-center p-4 hover:border-brand-purple transition-all duration-300 group shadow-lg">
+                        <img src="https://images.unsplash.com/photo-1558655146-d09347e92766?q=80&w=400" alt="Création visuelle sur ordinateur" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover opacity-30 group-hover:opacity-60 group-hover:scale-110 transition-all duration-500 grayscale group-hover:grayscale-0">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                        <span class="relative z-10 text-4xl md:text-5xl mb-3 group-hover:scale-125 group-hover:-translate-y-2 transition-transform duration-300" aria-hidden="true">🎨</span>
+                        <h4 class="relative z-10 text-brand-purple font-bold font-share tracking-widest text-xs md:text-sm uppercase bg-black/60 px-2 py-1">Créa. Image</h4>
+                    </div>
+                </div>
+
+                <!-- Galerie Défilante -->
+                <div class="relative w-full overflow-hidden flex flex-col gap-4 py-4 group js-pause-target" aria-hidden="true">
+                    <div class="absolute inset-y-0 left-0 w-16 md:w-32 bg-gradient-to-r from-[#000000] to-transparent z-10 pointer-events-none"></div>
+                    <div class="absolute inset-y-0 right-0 w-16 md:w-32 bg-gradient-to-l from-[#000000] to-transparent z-10 pointer-events-none"></div>
+
+                    <div class="marquee-container-left flex w-max hover:[animation-play-state:paused]" style="animation-duration: 72s;">
+                        <div class="flex items-center gap-4 pr-4 shrink-0">
+                            <img src="nathan-soulé-photographie-passion-photo-4.jpg" alt="" loading="lazy" decoding="async" class="w-48 h-32 md:w-64 md:h-40 object-cover border border-brand-cyan shadow-[0_0_15px_rgba(0,234,255,0.4)] transition-all duration-300">
+                            <img src="nathan-soulé-photographie-passion-photo-11.jpg" alt="" loading="lazy" decoding="async" class="w-48 h-32 md:w-64 md:h-40 object-cover border border-brand-purple shadow-[0_0_15px_rgba(168,55,214,0.4)] transition-all duration-300">
+                            <img src="nathan-soulé-digital-campus-bordeaux-16.jpg" alt="" loading="lazy" decoding="async" class="w-48 h-32 md:w-64 md:h-40 object-cover border border-brand-cyan shadow-[0_0_15px_rgba(0,234,255,0.4)] transition-all duration-300">
+                            <img src="nathan-soulé-photographie-passion-photo-2.jpg" alt="" loading="lazy" decoding="async" class="w-48 h-32 md:w-64 md:h-40 object-cover border border-brand-purple shadow-[0_0_15px_rgba(168,55,214,0.4)] transition-all duration-300">
+                            <img src="nathan-soulé-photographie-passion-photo-19.jpg" alt="" loading="lazy" decoding="async" class="w-48 h-32 md:w-64 md:h-40 object-cover border border-brand-cyan shadow-[0_0_15px_rgba(0,234,255,0.4)] transition-all duration-300">
+                            <img src="nathan-soulé-photographie-passion-photo-7.jpg" alt="" loading="lazy" decoding="async" class="w-48 h-32 md:w-64 md:h-40 object-cover border border-brand-purple shadow-[0_0_15px_rgba(168,55,214,0.4)] transition-all duration-300">
+                            <img src="nathan-soulé-photographie-passion-photo-14.jpg" alt="" loading="lazy" decoding="async" class="w-48 h-32 md:w-64 md:h-40 object-cover border border-brand-cyan shadow-[0_0_15px_rgba(0,234,255,0.4)] transition-all duration-300">
+                            <img src="nathan-soulé-photographie-passion-photo-1.jpg" alt="" loading="lazy" decoding="async" class="w-48 h-32 md:w-64 md:h-40 object-cover border border-brand-purple shadow-[0_0_15px_rgba(168,55,214,0.4)] transition-all duration-300">
+                        </div>
+                        <div class="flex items-center gap-4 pr-4 shrink-0">
+                            <img src="nathan-soulé-photographie-passion-photo-4.jpg" alt="" loading="lazy" decoding="async" class="w-48 h-32 md:w-64 md:h-40 object-cover border border-brand-cyan shadow-[0_0_15px_rgba(0,234,255,0.4)] transition-all duration-300">
+                            <img src="nathan-soulé-photographie-passion-photo-11.jpg" alt="" loading="lazy" decoding="async" class="w-48 h-32 md:w-64 md:h-40 object-cover border border-brand-purple shadow-[0_0_15px_rgba(168,55,214,0.4)] transition-all duration-300">
+                            <img src="nathan-soulé-digital-campus-bordeaux-16.jpg" alt="" loading="lazy" decoding="async" class="w-48 h-32 md:w-64 md:h-40 object-cover border border-brand-cyan shadow-[0_0_15px_rgba(0,234,255,0.4)] transition-all duration-300">
+                            <img src="nathan-soulé-photographie-passion-photo-2.jpg" alt="" loading="lazy" decoding="async" class="w-48 h-32 md:w-64 md:h-40 object-cover border border-brand-purple shadow-[0_0_15px_rgba(168,55,214,0.4)] transition-all duration-300">
+                            <img src="nathan-soulé-photographie-passion-photo-19.jpg" alt="" loading="lazy" decoding="async" class="w-48 h-32 md:w-64 md:h-40 object-cover border border-brand-cyan shadow-[0_0_15px_rgba(0,234,255,0.4)] transition-all duration-300">
+                            <img src="nathan-soulé-photographie-passion-photo-7.jpg" alt="" loading="lazy" decoding="async" class="w-48 h-32 md:w-64 md:h-40 object-cover border border-brand-purple shadow-[0_0_15px_rgba(168,55,214,0.4)] transition-all duration-300">
+                            <img src="nathan-soulé-photographie-passion-photo-14.jpg" alt="" loading="lazy" decoding="async" class="w-48 h-32 md:w-64 md:h-40 object-cover border border-brand-cyan shadow-[0_0_15px_rgba(0,234,255,0.4)] transition-all duration-300">
+                            <img src="nathan-soulé-photographie-passion-photo-1.jpg" alt="" loading="lazy" decoding="async" class="w-48 h-32 md:w-64 md:h-40 object-cover border border-brand-purple shadow-[0_0_15px_rgba(168,55,214,0.4)] transition-all duration-300">
+                        </div>
+                    </div>
+
+                    <div class="marquee-container-right flex w-max hover:[animation-play-state:paused] cursor-crosshair" style="animation-duration: 88s;">
+                        <div class="flex items-center gap-4 pr-4 shrink-0">
+                            <img src="nathan-soulé-photographie-passion-photo-9.jpg" alt="" loading="lazy" decoding="async" class="w-48 h-32 md:w-64 md:h-40 object-cover border border-brand-purple shadow-[0_0_15px_rgba(168,55,214,0.4)] transition-all duration-300">
+                            <img src="nathan-soulé-passion-streaming-23.jpg" alt="" loading="lazy" decoding="async" class="w-48 h-32 md:w-64 md:h-40 object-cover border border-brand-cyan shadow-[0_0_15px_rgba(0,234,255,0.4)] transition-all duration-300">
+                            <img src="nathan-soulé-photographie-passion-photo-3.jpg" alt="" loading="lazy" decoding="async" class="w-48 h-32 md:w-64 md:h-40 object-cover border border-brand-purple shadow-[0_0_15px_rgba(168,55,214,0.4)] transition-all duration-300">
+                            <img src="nathan-soulé-photographie-passion-photo-20.jpg" alt="" loading="lazy" decoding="async" class="w-48 h-32 md:w-64 md:h-40 object-cover border border-brand-cyan shadow-[0_0_15px_rgba(0,234,255,0.4)] transition-all duration-300">
+                            <img src="nathan-soulé-digital-campus-bordeaux-18.jpg" alt="" loading="lazy" decoding="async" class="w-48 h-32 md:w-64 md:h-40 object-cover border border-brand-purple shadow-[0_0_15px_rgba(168,55,214,0.4)] transition-all duration-300">
+                            <img src="nathan-soulé-photographie-passion-photo-5.jpg" alt="" loading="lazy" decoding="async" class="w-48 h-32 md:w-64 md:h-40 object-cover border border-brand-cyan shadow-[0_0_15px_rgba(0,234,255,0.4)] transition-all duration-300">
+                            <img src="nathan-soulé-photographie-passion-photo-12.jpg" alt="" loading="lazy" decoding="async" class="w-48 h-32 md:w-64 md:h-40 object-cover border border-brand-purple shadow-[0_0_15px_rgba(168,55,214,0.4)] transition-all duration-300">
+                            <img src="nathan-soulé-photographie-passion-photo-17.jpg" alt="" loading="lazy" decoding="async" class="w-48 h-32 md:w-64 md:h-40 object-cover border border-brand-cyan shadow-[0_0_15px_rgba(0,234,255,0.4)] transition-all duration-300">
+                        </div>
+                        <div class="flex items-center gap-4 pr-4 shrink-0">
+                            <img src="nathan-soulé-photographie-passion-photo-9.jpg" alt="" loading="lazy" decoding="async" class="w-48 h-32 md:w-64 md:h-40 object-cover border border-brand-purple shadow-[0_0_15px_rgba(168,55,214,0.4)] transition-all duration-300">
+                            <img src="nathan-soulé-passion-streaming-23.jpg" alt="" loading="lazy" decoding="async" class="w-48 h-32 md:w-64 md:h-40 object-cover border border-brand-cyan shadow-[0_0_15px_rgba(0,234,255,0.4)] transition-all duration-300">
+                            <img src="nathan-soulé-photographie-passion-photo-3.jpg" alt="" loading="lazy" decoding="async" class="w-48 h-32 md:w-64 md:h-40 object-cover border border-brand-purple shadow-[0_0_15px_rgba(168,55,214,0.4)] transition-all duration-300">
+                            <img src="nathan-soulé-photographie-passion-photo-20.jpg" alt="" loading="lazy" decoding="async" class="w-48 h-32 md:w-64 md:h-40 object-cover border border-brand-cyan shadow-[0_0_15px_rgba(0,234,255,0.4)] transition-all duration-300">
+                            <img src="nathan-soulé-digital-campus-bordeaux-18.jpg" alt="" loading="lazy" decoding="async" class="w-48 h-32 md:w-64 md:h-40 object-cover border border-brand-purple shadow-[0_0_15px_rgba(168,55,214,0.4)] transition-all duration-300">
+                            <img src="nathan-soulé-photographie-passion-photo-5.jpg" alt="" loading="lazy" decoding="async" class="w-48 h-32 md:w-64 md:h-40 object-cover border border-brand-cyan shadow-[0_0_15px_rgba(0,234,255,0.4)] transition-all duration-300">
+                            <img src="nathan-soulé-photographie-passion-photo-12.jpg" alt="" loading="lazy" decoding="async" class="w-48 h-32 md:w-64 md:h-40 object-cover border border-brand-purple shadow-[0_0_15px_rgba(168,55,214,0.4)] transition-all duration-300">
+                            <img src="nathan-soulé-photographie-passion-photo-17.jpg" alt="" loading="lazy" decoding="async" class="w-48 h-32 md:w-64 md:h-40 object-cover border border-brand-cyan shadow-[0_0_15px_rgba(0,234,255,0.4)] transition-all duration-300">
+                        </div>
+                    </div>
+
+                    <div class="marquee-container-left flex w-max hover:[animation-play-state:paused] cursor-crosshair" style="animation-duration: 80s;">
+                        <div class="flex items-center gap-4 pr-4 shrink-0">
+                            <img src="nathan-soulé-passion-vidéo-24.jpg" alt="" loading="lazy" decoding="async" class="w-48 h-32 md:w-64 md:h-40 object-cover border border-brand-cyan shadow-[0_0_15px_rgba(0,234,255,0.4)] transition-all duration-300">
+                            <img src="nathan-soulé-photographie-passion-photo-8.jpg" alt="" loading="lazy" decoding="async" class="w-48 h-32 md:w-64 md:h-40 object-cover border border-brand-purple shadow-[0_0_15px_rgba(168,55,214,0.4)] transition-all duration-300">
+                            <img src="nathan-soulé-photographie-passion-photo-21.jpg" alt="" loading="lazy" decoding="async" class="w-48 h-32 md:w-64 md:h-40 object-cover border border-brand-cyan shadow-[0_0_15px_rgba(0,234,255,0.4)] transition-all duration-300">
+                            <img src="nathan-soulé-digital-campus-bordeaux-22.jpg" alt="" loading="lazy" decoding="async" class="w-48 h-32 md:w-64 md:h-40 object-cover border border-brand-purple shadow-[0_0_15px_rgba(168,55,214,0.4)] transition-all duration-300">
+                            <img src="nathan-soulé-photographie-passion-photo-6.jpg" alt="" loading="lazy" decoding="async" class="w-48 h-32 md:w-64 md:h-40 object-cover border border-brand-cyan shadow-[0_0_15px_rgba(0,234,255,0.4)] transition-all duration-300">
+                            <img src="nathan-soulé-photographie-passion-photo-15.jpg" alt="" loading="lazy" decoding="async" class="w-48 h-32 md:w-64 md:h-40 object-cover border border-brand-purple shadow-[0_0_15px_rgba(168,55,214,0.4)] transition-all duration-300">
+                            <img src="nathan-soulé-photographie-passion-photo-10.jpg" alt="" loading="lazy" decoding="async" class="w-48 h-32 md:w-64 md:h-40 object-cover border border-brand-cyan shadow-[0_0_15px_rgba(0,234,255,0.4)] transition-all duration-300">
+                            <img src="nathan-soulé-photographie-passion-photo-13.jpg" alt="" loading="lazy" decoding="async" class="w-48 h-32 md:w-64 md:h-40 object-cover border border-brand-purple shadow-[0_0_15px_rgba(168,55,214,0.4)] transition-all duration-300">
+                        </div>
+                        <div class="flex items-center gap-4 pr-4 shrink-0">
+                            <img src="nathan-soulé-passion-vidéo-24.jpg" alt="" loading="lazy" decoding="async" class="w-48 h-32 md:w-64 md:h-40 object-cover border border-brand-cyan shadow-[0_0_15px_rgba(0,234,255,0.4)] transition-all duration-300">
+                            <img src="nathan-soulé-photographie-passion-photo-8.jpg" alt="" loading="lazy" decoding="async" class="w-48 h-32 md:w-64 md:h-40 object-cover border border-brand-purple shadow-[0_0_15px_rgba(168,55,214,0.4)] transition-all duration-300">
+                            <img src="nathan-soulé-photographie-passion-photo-21.jpg" alt="" loading="lazy" decoding="async" class="w-48 h-32 md:w-64 md:h-40 object-cover border border-brand-cyan shadow-[0_0_15px_rgba(0,234,255,0.4)] transition-all duration-300">
+                            <img src="nathan-soulé-digital-campus-bordeaux-22.jpg" alt="" loading="lazy" decoding="async" class="w-48 h-32 md:w-64 md:h-40 object-cover border border-brand-purple shadow-[0_0_15px_rgba(168,55,214,0.4)] transition-all duration-300">
+                            <img src="nathan-soulé-photographie-passion-photo-6.jpg" alt="" loading="lazy" decoding="async" class="w-48 h-32 md:w-64 md:h-40 object-cover border border-brand-cyan shadow-[0_0_15px_rgba(0,234,255,0.4)] transition-all duration-300">
+                            <img src="nathan-soulé-photographie-passion-photo-15.jpg" alt="" loading="lazy" decoding="async" class="w-48 h-32 md:w-64 md:h-40 object-cover border border-brand-purple shadow-[0_0_15px_rgba(168,55,214,0.4)] transition-all duration-300">
+                            <img src="nathan-soulé-photographie-passion-photo-10.jpg" alt="" loading="lazy" decoding="async" class="w-48 h-32 md:w-64 md:h-40 object-cover border border-brand-cyan shadow-[0_0_15px_rgba(0,234,255,0.4)] transition-all duration-300">
+                            <img src="nathan-soulé-photographie-passion-photo-13.jpg" alt="" loading="lazy" decoding="async" class="w-48 h-32 md:w-64 md:h-40 object-cover border border-brand-purple shadow-[0_0_15px_rgba(168,55,214,0.4)] transition-all duration-300">
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </section>
+
+    <!-- SECTION : CV -->
+    <section id="cv" class="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-12 lg:px-24 pb-24 scroll-mt-24">
+        <div class="w-full">
+            <div class="cyber-panel p-8 md:p-12 relative overflow-hidden flex flex-col md:flex-row gap-10 items-center justify-between text-left">
+                <div class="absolute inset-0 scanlines opacity-40 pointer-events-none" aria-hidden="true"></div>
+                <div class="w-full md:w-2/3 relative z-10">
+                    <div class="inline-flex items-center gap-3 mb-6">
+                            <div class="w-3 h-3 bg-brand-cyan animate-pulse shadow-[0_0_10px_#00EAFF]" aria-hidden="true"></div>
+                            <span class="text-brand-cyan font-share text-xs md:text-sm tracking-widest uppercase">STATUT // DISPONIBLE POUR ALTERNANCE</span>
+                        </div>
+                        
+                        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-heading font-black text-white uppercase tracking-wider md:tracking-widest leading-tight mb-6">
+                            <span class="block w-full break-words">Communication</span>
+                            <span class="text-transparent inline-block" style="-webkit-text-stroke: 1px #00EAFF; text-shadow: 0 0 15px rgba(0, 234, 255, 0.3);">&amp;</span>
+                            <span class="text-transparent neon-glitch inline-block" style="-webkit-text-stroke: 1px #00EAFF; text-shadow: 0 0 15px rgba(0, 234, 255, 0.3);">Digital</span>
+                        </h2>
+                        
+                        <p class="text-gray-300 text-sm md:text-base font-normal leading-relaxed mb-8 max-w-xl text-justify">
+                            Aujourd'hui, je recherche une entreprise pour m'accueillir en alternance. Je veux mettre toute mon énergie créative et mon sens de l'organisation au service de vos projets.
+                        </p>
+                        <div class="flex items-center gap-4 md:gap-6 mb-8">
+                            <div class="hidden sm:flex text-brand-cyan" aria-hidden="true">
+                                <svg class="w-8 h-8 drop-shadow-[0_0_8px_rgba(0,234,255,0.5)]" fill="none" stroke="currentColor" stroke-width="1.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"></path></svg>
+                            </div>
+                            <div class="flex flex-col w-full">
+                                <p class="text-brand-cyan font-share text-[10px] uppercase tracking-widest mb-2 flex items-center gap-2">
+                                    <span class="w-1.5 h-1.5 bg-brand-cyan animate-pulse shadow-[0_0_5px_#00EAFF]" aria-hidden="true"></span> RYTHME ATTENDU
+                                </p>
+                                <div class="flex flex-col sm:flex-row gap-2 sm:gap-4 w-full">
+                                    <div class="flex items-center gap-3 bg-brand-cyan/10 px-3 py-1.5 border-l-2 border-brand-cyan w-full sm:w-auto">
+                                        <span class="text-white font-share text-sm font-bold">2 SEMAINES</span>
+                                        <span class="text-brand-cyan font-share text-[10px] tracking-widest">ENTREPRISE</span>
+                                    </div>
+                                    <div class="flex items-center gap-3 bg-brand-purple/10 px-3 py-1.5 border-l-2 border-brand-purple w-full sm:w-auto">
+                                        <span class="text-white font-share text-sm font-bold">1 SEMAINE</span>
+                                        <span class="text-brand-purple font-share text-[10px] tracking-widest">ÉCOLE</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex flex-col sm:flex-row gap-4">
+                            <a href="#contact" class="inline-flex items-center justify-center gap-3 px-8 py-4 bg-brand-cyan border border-brand-cyan text-[#000000] font-share font-bold text-sm tracking-widest uppercase hover:bg-transparent hover:text-brand-cyan hover:shadow-[0_0_20px_rgba(0,234,255,0.6)] transition-all w-full sm:w-auto focus-visible:bg-transparent focus-visible:text-brand-cyan">
+                                ME CONTACTER
+                            </a>
+                            <a href="CV_Nathan_Soule.pdf" target="_blank" class="inline-flex items-center justify-center gap-3 px-8 py-4 bg-transparent border border-gray-600 text-gray-300 font-share text-sm tracking-widest uppercase hover:border-brand-cyan hover:text-brand-cyan hover:bg-brand-cyan/10 transition-all w-full sm:w-auto group cursor-pointer focus-visible:border-brand-cyan focus-visible:bg-brand-cyan/10" aria-label="Consulter mon CV en format PDF">
+                                <svg class="w-4 h-4 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
+                                CONSULTER LE CV
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- BANDES CYBERPUNK -->
+    <div class="relative w-full h-[35vh] md:h-[38vh] min-h-[350px] overflow-hidden z-0 flex flex-col justify-center items-center mt-8 md:mt-16 reveal js-pause-target" id="bandes-container" aria-hidden="true">
+        
+        <div id="bande-cyan-wrapper" class="absolute w-[150vw] -left-[25vw] z-20 flex justify-center">
+            <div class="w-full bg-brand-cyan/10 border-y border-brand-cyan/40 transform -rotate-3 md:-rotate-2 py-3 md:py-5 shadow-[0_0_30px_rgba(0,234,255,0.2)] bande-flou-fix">
+                <div class="marquee-container-left flex w-max" id="marquee-cyan"></div>
+            </div>
+        </div>
+
+        <div id="bande-purple-wrapper" class="absolute w-[150vw] -left-[25vw] z-10 flex justify-center">
+            <div class="w-full bg-brand-purple/10 border-y border-brand-purple/40 transform rotate-[6deg] md:rotate-[8deg] py-3 md:py-5 shadow-[0_0_30px_rgba(168,55,214,0.2)] bande-flou-fix">
+                <div class="marquee-container-right flex w-max" id="marquee-purple"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- METHODOLOGIE -->
+    <section id="methodologie" class="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-12 lg:px-24 pt-0 -mt-4 md:-mt-6 pb-20">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-start">
+            <div class="lg:col-span-5 lg:sticky lg:top-24 z-20 flex lg:justify-center">
+                <div class="max-w-md w-full reveal">
+                    <div class="inline-block px-4 py-2 mb-6 border border-brand-cyan/50 text-brand-cyan font-share text-xs tracking-widest uppercase shadow-[0_0_10px_rgba(0,234,255,0.1)]">// MÉTHODOLOGIE</div>
+                    <h2 class="text-2xl md:text-4xl font-heading font-black text-white uppercase tracking-widest leading-tight mb-6 drop-shadow-lg">Mon Approche <br><span class="text-transparent neon-glitch inline-block pb-1" style="-webkit-text-stroke: 1px #00EAFF; text-shadow: 0 0 15px rgba(0, 234, 255, 0.3);">Stratégique</span></h2>
+                    <p class="text-gray-400 text-lg font-normal leading-relaxed">En tant qu'étudiant en Bachelor Chef de Projet Digital, j'ai structuré mon approche autour de mes trois domaines d'expertise. Mon objectif : vous proposer un accompagnement global, de la création de votre identité à la mise en ligne de votre site, jusqu'à votre stratégie de communication.</p>
+                </div>
+            </div>
+
+            <div class="lg:col-span-7 grid grid-cols-1 auto-rows-fr gap-6">
+                <div class="reveal delay-100 h-full">
+                    <div class="cyber-panel method-panel relative overflow-hidden p-6 md:p-8 h-full flex flex-col justify-center">
+                        <div class="absolute inset-0 scanlines opacity-40 pointer-events-none" style="z-index: 0;"></div>
+                        <div class="relative z-10 flex flex-col md:flex-row gap-6 items-start md:items-center">
+                            <div class="md:w-1/4 shrink-0 border-b md:border-b-0 md:border-r border-brand-cyan/40 pb-4 md:pb-0 md:pr-6">
+                                <div class="text-3xl md:text-4xl font-orbitron font-black text-transparent" style="-webkit-text-stroke: 1px rgba(0, 234, 255, 0.8); text-shadow: 0 0 10px rgba(0, 234, 255, 0.3);" aria-hidden="true">01</div>
+                                <div class="text-brand-cyan font-share text-xs tracking-widest uppercase mt-2 whitespace-nowrap">// IMMERSION</div>
+                            </div>
+                            <div class="md:w-3/4">
+                                <h3 class="text-lg font-heading font-bold text-white tracking-widest leading-tight uppercase mb-3">Audit & Stratégie</h3>
+                                <p class="text-gray-400 text-sm md:text-base font-normal leading-relaxed text-justify">Analyse de vos besoins et de votre marché. Nous définissons ensemble un plan d'action clair pour poser des fondations solides.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="reveal delay-200 h-full">
+                    <div class="cyber-panel panel-purple method-panel relative overflow-hidden p-6 md:p-8 h-full flex flex-col justify-center">
+                        <div class="absolute inset-0 scanlines opacity-40 pointer-events-none" style="z-index: 0;"></div>
+                        <div class="relative z-10 flex flex-col md:flex-row gap-6 items-start md:items-center">
+                            <div class="md:w-1/4 shrink-0 border-b md:border-b-0 md:border-r border-brand-purple/40 pb-4 md:pb-0 md:pr-6">
+                                <div class="text-3xl md:text-4xl font-orbitron font-black text-transparent" style="-webkit-text-stroke: 1px rgba(168, 55, 214, 0.8); text-shadow: 0 0 10px rgba(168, 55, 214, 0.3);" aria-hidden="true">02</div>
+                                <div class="text-brand-purple font-share text-xs tracking-widest uppercase mt-2 whitespace-nowrap">// CONCEPTION</div>
+                            </div>
+                            <div class="md:w-3/4">
+                                <h3 class="text-lg font-heading font-bold text-white tracking-widest leading-tight uppercase mb-3">Design & Développement</h3>
+                                <p class="text-gray-400 text-sm md:text-base font-normal leading-relaxed text-justify">Place à la création ! Je conçois votre <span class="text-white">Identité Visuelle</span>, je développe votre <span class="text-white">Site Vitrine</span>, et je crée vos supports de <span class="text-white">Communication</span>.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="reveal delay-300 h-full">
+                    <div class="cyber-panel method-panel relative overflow-hidden p-6 md:p-8 h-full flex flex-col justify-center">
+                        <div class="absolute inset-0 scanlines opacity-40 pointer-events-none" style="z-index: 0;"></div>
+                        <div class="relative z-10 flex flex-col md:flex-row gap-6 items-start md:items-center">
+                            <div class="md:w-1/4 shrink-0 border-b md:border-b-0 md:border-r border-brand-cyan/40 pb-4 md:pb-0 md:pr-6">
+                                <div class="text-3xl md:text-4xl font-orbitron font-black text-transparent" style="-webkit-text-stroke: 1px rgba(0, 234, 255, 0.8); text-shadow: 0 0 10px rgba(0, 234, 255, 0.3);" aria-hidden="true">03</div>
+                                <div class="text-brand-cyan font-share text-xs tracking-widest uppercase mt-2 whitespace-nowrap">// DÉPLOIEMENT</div>
+                            </div>
+                            <div class="md:w-3/4">
+                                <h3 class="text-lg font-heading font-bold text-white tracking-widest leading-tight uppercase mb-3">Lancement & Autonomie</h3>
+                                <p class="text-gray-400 text-sm md:text-base font-normal leading-relaxed text-justify">Votre projet prend vie. Je déploie vos solutions (site, campagnes, visuels) et je vous forme pour que vous soyez 100% autonome.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ZONE SÉPARATION CYBERPUNK -->
+    <div class="w-full flex justify-center py-8 relative z-20 reveal" aria-hidden="true">
+        <div class="cyber-divider-animated"></div>
+    </div>
+
+    <!-- SERVICES -->
+    <section id="services" class="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-12 lg:px-24 py-20">
+        <div class="flex flex-col items-center text-center mb-16 reveal">
+            <div class="inline-block px-4 py-2 mb-4 border border-brand-cyan/50 text-brand-cyan font-share text-xs tracking-widest uppercase shadow-[0_0_10px_rgba(0,234,255,0.1)]">// MES SERVICES</div>
+            <h2 class="text-2xl md:text-4xl font-heading font-black text-white uppercase tracking-widest leading-tight">Packs <span class="text-transparent inline-block pb-1" style="-webkit-text-stroke: 1px #00EAFF; text-shadow: 0 0 15px rgba(0, 234, 255, 0.3);">Sur-Mesure</span></h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
+            
+            <!-- Pack 01 : Site Vitrine -->
+            <article class="cyber-panel border-t-4 border-t-brand-cyan relative overflow-hidden flex flex-col p-8 reveal hover:-translate-y-2 transition-transform duration-300">
+                <div class="absolute inset-0 scanlines opacity-40 pointer-events-none" style="z-index: 0;" aria-hidden="true"></div>
+                <div class="relative z-10 flex flex-col h-full">
+                    <div class="text-4xl font-heading font-black text-transparent mb-2" style="-webkit-text-stroke: 1px rgba(0, 234, 255, 0.8); filter: drop-shadow(0 0 10px rgba(0, 234, 255, 0.5));" aria-hidden="true">01</div>
+                    <h3 class="text-xl md:text-2xl font-heading font-bold text-white mb-4 uppercase tracking-widest">Site Vitrine</h3>
+                    <p class="text-gray-400 text-sm font-normal leading-relaxed mb-8 flex-1">Une présence en ligne performante, au design unique, optimisée pour convertir vos visiteurs en clients.</p>
+                    
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-start gap-3 text-sm text-gray-300 font-share tracking-wide">
+                            <span class="text-brand-cyan mt-1" aria-hidden="true">▹</span> Design UI/UX sur-mesure
+                        </li>
+                        <li class="flex items-start gap-3 text-sm text-gray-300 font-share tracking-wide">
+                            <span class="text-brand-cyan mt-1" aria-hidden="true">▹</span> Développement Front-End
+                        </li>
+                        <li class="flex items-start gap-3 text-sm text-gray-300 font-share tracking-wide">
+                            <span class="text-brand-cyan mt-1" aria-hidden="true">▹</span> Optimisation SEO & Mobile
+                        </li>
+                    </ul>
+                    
+                    <a href="#contact" onclick="document.getElementById('objet').value='Demande : Pack Site Vitrine'" class="btn-scan w-full text-center border border-brand-cyan/50 text-brand-cyan font-share text-sm tracking-widest uppercase py-3 hover:bg-brand-cyan hover:text-black hover:shadow-[0_0_15px_rgba(0,234,255,0.4)] transition-all focus-visible:bg-brand-cyan focus-visible:text-black">SÉLECTIONNER</a>
+                </div>
+            </article>
+
+            <!-- Pack 02 : Identité Visuelle -->
+            <article class="cyber-panel panel-purple border-t-4 border-t-brand-purple relative overflow-hidden flex flex-col p-8 reveal hover:-translate-y-2 transition-transform duration-300">
+                <div class="absolute inset-0 scanlines opacity-40 pointer-events-none" style="z-index: 0;" aria-hidden="true"></div>
+                <div class="relative z-10 flex flex-col h-full">
+                    <div class="text-4xl font-heading font-black text-transparent mb-2" style="-webkit-text-stroke: 1px rgba(168, 55, 214, 0.8); filter: drop-shadow(0 0 10px rgba(168, 55, 214, 0.5));" aria-hidden="true">02</div>
+                    <h3 class="text-xl md:text-2xl font-heading font-bold text-white mb-4 uppercase tracking-widest">Identité Visuelle</h3>
+                    <p class="text-gray-400 text-sm font-normal leading-relaxed mb-8 flex-1">Un univers graphique cohérent et mémorable pour démarquer instantanément votre marque de la concurrence.</p>
+                    
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-start gap-3 text-sm text-gray-300 font-share tracking-wide">
+                            <span class="text-brand-purple mt-1" aria-hidden="true">▹</span> Création de Logo
+                        </li>
+                        <li class="flex items-start gap-3 text-sm text-gray-300 font-share tracking-wide">
+                            <span class="text-brand-purple mt-1" aria-hidden="true">▹</span> Charte Graphique complète
+                        </li>
+                        <li class="flex items-start gap-3 text-sm text-gray-300 font-share tracking-wide">
+                            <span class="text-brand-purple mt-1" aria-hidden="true">▹</span> Support Print (cartes, affiches etc)
+                        </li>
+                    </ul>
+                    
+                    <a href="#contact" onclick="document.getElementById('objet').value='Demande : Pack Identité Visuelle'" class="btn-scan w-full text-center border border-brand-purple/50 text-brand-purple font-share text-sm tracking-widest uppercase py-3 hover:bg-brand-purple hover:text-black hover:shadow-[0_0_15px_rgba(168,55,214,0.4)] transition-all focus-visible:bg-brand-purple focus-visible:text-black">SÉLECTIONNER</a>
+                </div>
+            </article>
+
+            <!-- Pack 03 : Marketing & Com -->
+            <article class="cyber-panel border-t-4 border-t-brand-cyan relative overflow-hidden flex flex-col p-8 reveal hover:-translate-y-2 transition-transform duration-300">
+                <div class="absolute inset-0 scanlines opacity-40 pointer-events-none" style="z-index: 0;" aria-hidden="true"></div>
+                <div class="relative z-10 flex flex-col h-full">
+                    <div class="text-4xl font-heading font-black text-transparent mb-2" style="-webkit-text-stroke: 1px rgba(0, 234, 255, 0.8); filter: drop-shadow(0 0 10px rgba(0, 234, 255, 0.5));" aria-hidden="true">03</div>
+                    <h3 class="text-xl md:text-2xl font-heading font-bold text-white mb-4 uppercase tracking-widest">Marketing & Com</h3>
+                    <p class="text-gray-400 text-sm font-normal leading-relaxed mb-8 flex-1">Une stratégie de diffusion percutante pour engager votre communauté et faire résonner votre message.</p>
+                    
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-start gap-3 text-sm text-gray-300 font-share tracking-wide">
+                            <span class="text-brand-cyan mt-1" aria-hidden="true">▹</span> Stratégie Digitale 360°
+                        </li>
+                        <li class="flex items-start gap-3 text-sm text-gray-300 font-share tracking-wide">
+                            <span class="text-brand-cyan mt-1" aria-hidden="true">▹</span> Animation Réseaux Sociaux
+                        </li>
+                        <li class="flex items-start gap-3 text-sm text-gray-300 font-share tracking-wide">
+                            <span class="text-brand-cyan mt-1" aria-hidden="true">▹</span> Production Vidéo & Audio
+                        </li>
+                    </ul>
+                    
+                    <a href="#contact" onclick="document.getElementById('objet').value='Demande : Pack Marketing & Com'" class="btn-scan w-full text-center border border-brand-cyan/50 text-brand-cyan font-share text-sm tracking-widest uppercase py-3 hover:bg-brand-cyan hover:text-black hover:shadow-[0_0_15px_rgba(0,234,255,0.4)] transition-all focus-visible:bg-brand-cyan focus-visible:text-black">SÉLECTIONNER</a>
+                </div>
+            </article>
+
+        </div>
+    </section>
+
+    <!-- ZONE SÉPARATION CYBERPUNK -->
+    <div class="w-full flex justify-center py-8 relative z-20 reveal" aria-hidden="true">
+        <div class="cyber-divider-animated"></div>
+    </div>
+
+    <!-- CONTACT -->
+    <section id="contact" class="relative z-10 w-full px-6 md:px-12 lg:px-24 pt-20 pb-12 reveal delay-100">
+        <div class="max-w-4xl mx-auto flex flex-col items-center text-center mb-12">
+            <div class="inline-flex items-center gap-2 px-4 py-2 mb-6 border border-brand-cyan/50 text-brand-cyan font-share text-xs tracking-widest uppercase shadow-[0_0_10px_rgba(0,234,255,0.1)]">
+                <span class="w-2 h-2 rounded-full bg-brand-cyan animate-pulse shadow-[0_0_8px_rgba(0,234,255,1)]"></span>
+                // INITIALISER_CONTACT
+            </div>
+            <h2 class="text-3xl md:text-5xl font-heading font-black text-white uppercase tracking-widest leading-tight mb-6">
+                Transmettre les <span class="text-transparent neon-glitch inline-block pb-1" style="-webkit-text-stroke: 1px #00EAFF; text-shadow: 0 0 15px rgba(0, 234, 255, 0.3);">Données</span>
+            </h2>
+            <p class="text-gray-400 text-base md:text-lg font-normal leading-relaxed mb-8 max-w-2xl">
+                Une proposition d'alternance, une idée de projet ou simplement envie d'échanger ? N'hésitez pas à m'envoyer un message via ce formulaire, je vous répondrai dans les meilleurs délais.
+            </p>
+        </div>
+
+        <div class="max-w-4xl mx-auto w-full cyber-panel relative overflow-hidden p-8 md:p-12">
+            <div class="absolute inset-0 scanlines opacity-40 pointer-events-none" aria-hidden="true"></div>
+            <div class="relative z-10">
+                <form id="contactForm" onsubmit="sendEmail(event)" class="w-full">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                        <div class="flex flex-col gap-2">
+                            <label for="email" class="terminal-label text-left cursor-pointer"><span class="prompt">>_</span> E-MAIL CLIENT</label>
+                            <input type="email" id="email" required class="terminal-input w-full bg-[#000000]/60 border border-brand-cyan/40 px-4 py-3 text-white font-share text-base focus:outline-none transition-all placeholder-gray-500 shadow-inner" placeholder="votre@email.com">
+                        </div>
+                        <div class="flex flex-col gap-2">
+                            <label for="objet" class="terminal-label text-left cursor-pointer"><span class="prompt">>_</span> OBJET DE LA REQUÊTE</label>
+                            <input type="text" id="objet" required class="terminal-input w-full bg-[#000000]/60 border border-brand-cyan/40 px-4 py-3 text-white font-share text-base focus:outline-none transition-all placeholder-gray-500 shadow-inner" placeholder="Sujet de votre message">
+                        </div>
+                    </div>
+                    <div class="flex flex-col gap-2 mb-6">
+                        <label for="message" class="terminal-label text-left cursor-pointer"><span class="prompt">>_</span> CORPS DU MESSAGE</label>
+                        <textarea id="message" rows="5" required class="terminal-input w-full bg-[#000000]/60 border border-brand-cyan/40 px-4 py-3 text-white font-share text-base focus:outline-none transition-all resize-none leading-relaxed placeholder-gray-500 shadow-inner" placeholder="Détaillez votre projet ou votre question ici..."></textarea>
+                    </div>
+                    <div id="form-progress-bar" class="w-full h-0 mb-4 overflow-hidden transition-all"><div class="form-progress" id="form-progress-fill"></div></div>
+                    <div class="flex justify-center md:justify-start">
+                        <button type="submit" class="btn-scan inline-flex items-center justify-center gap-3 px-8 py-4 bg-brand-cyan/10 border border-brand-cyan text-brand-cyan font-share text-sm tracking-widest uppercase hover:bg-brand-cyan hover:text-[#000000] hover:shadow-[0_0_20px_rgba(0,234,255,0.6)] focus-visible:bg-brand-cyan focus-visible:text-[#000000] transition-all w-full md:w-auto group">
+                            <span class="relative z-10 flex items-center gap-3">TRANSMETTRE
+                            <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg></span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER COMPLET -->
+    <footer class="w-full bg-[#000000]/30 backdrop-blur-md border-t border-brand-cyan/20 relative z-20 mt-12 overflow-hidden flex flex-col">
+        <div class="w-full flex flex-col md:flex-row justify-between items-center py-8 md:py-6 px-6 md:px-12 relative z-10 gap-6 md:gap-8 mt-6 md:mt-0">
+            
+            <!-- Icône 3D Infini (Gauche) -->
+            <div class="hidden md:flex w-[75px] shrink-0 justify-start" aria-hidden="true">
+                <div id="infinity-canvas-left" class="w-16 h-10 cursor-pointer block"></div>
+            </div>
+            
+            <div class="w-full md:flex-1 max-w-4xl min-w-0 relative border border-brand-cyan/40 shadow-[0_0_10px_rgba(0,234,255,0.15)] bg-[#030e12]/80 h-10 md:h-12 flex items-center group mx-auto overflow-hidden js-pause-target">
+                <div class="absolute inset-0 scanlines opacity-50 pointer-events-none z-20"></div>
+                <div class="w-full h-full overflow-hidden relative flex items-center px-2 z-10" style="-webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent); mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);">
+                    
+                    <div class="marquee-container-left flex w-max hover:[animation-play-state:paused] relative z-10 items-center h-full" id="footer-social-marquee">
+                        <!-- Rempli par le JS -->
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Icône 3D Infini (Droite) -->
+            <div class="w-full md:w-[75px] shrink-0 flex justify-center md:justify-end" aria-hidden="true">
+                <div id="infinity-canvas-right" class="w-16 h-10 cursor-pointer block"></div>
+            </div>
+        </div>
+
+        <!-- SECTION : Liens Légaux & Copyright (Centré) -->
+        <div class="w-full border-t border-brand-cyan/10 py-4 px-6 flex justify-center items-center relative z-10 bg-[#000000]/50">
+            <div class="flex flex-wrap justify-center items-center gap-3 sm:gap-4 text-gray-500 font-share text-xs tracking-widest uppercase text-center">
+                <span class="py-2">Copyright © 2026 Nathan Soulé</span>
+                <span class="text-brand-cyan/30 hidden md:inline">|</span>
+                <a href="mentions-legales.html" class="hover:text-brand-cyan transition-colors duration-300 py-2 px-1">Mentions Légales</a>
+                <span class="text-brand-cyan/30 hidden md:inline">|</span>
+                <a href="mentions-legales.html#confidentialite" class="hover:text-brand-cyan transition-colors duration-300 py-2 px-1">Politique de Confidentialité</a>
+                <span class="text-brand-cyan/30 hidden md:inline">|</span>
+                <a href="mentions-legales.html#cgu" class="hover:text-brand-cyan transition-colors duration-300 py-2 px-1">CGU</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- BOUTON RETOUR EN HAUT (Ajout) -->
+    <a href="#" id="back-to-top" class="fixed bottom-6 left-6 z-[150] bg-[#000000]/80 border border-brand-cyan/50 text-brand-cyan p-3 hover:bg-brand-cyan hover:text-black transition-all duration-300 shadow-[0_0_15px_rgba(0,234,255,0.2)] opacity-0 translate-y-10 pointer-events-none focus-visible:bg-brand-cyan focus-visible:text-black" aria-label="Retourner en haut de la page">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"></path></svg>
+    </a>
+
+    <!-- NOTIFICATION TOAST CYBERPUNK -->
+    <div id="cyber-toast" class="fixed bottom-6 right-6 z-[200] transform translate-y-[150%] opacity-0 transition-all duration-300 ease-out pointer-events-none" aria-live="assertive" role="alert">
+        <div class="bg-brand-dark/95 border border-brand-cyan shadow-[0_0_20px_rgba(0,234,255,0.4)] px-6 py-4 flex items-center gap-4 backdrop-blur-md">
+            <span class="w-2 h-2 bg-brand-cyan animate-pulse shadow-[0_0_8px_#00EAFF]"></span>
+            <span id="cyber-toast-message" class="text-white font-share tracking-widest text-sm uppercase">Donnée copiée</span>
+        </div>
+    </div>
+
+    <!-- MODALE YOUTUBE -->
+    <div id="video-modal" class="fixed inset-0 z-[1000] bg-black/95 backdrop-blur-xl flex flex-col items-center justify-center opacity-0 pointer-events-none transition-all duration-300 p-4 md:p-8" role="dialog" aria-modal="true" aria-labelledby="video-modal-title">
+        <div class="w-full max-w-5xl relative z-40 flex flex-col items-end">
+            <button id="close-video-btn" onclick="closeVideoModal()" class="mb-4 bg-[#000000] border border-brand-cyan/50 px-4 py-2 text-brand-cyan hover:bg-brand-cyan hover:text-black font-share text-sm uppercase tracking-widest transition-all flex items-center gap-2 shadow-[0_0_15px_rgba(0,234,255,0.2)] focus-visible:bg-brand-cyan focus-visible:text-black" aria-label="Fermer la vidéo">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg> <span class="hidden md:inline">FERMER</span>
+            </button>
+            <div class="aspect-video w-full border-2 border-brand-cyan/40 shadow-[0_0_40px_rgba(0,234,255,0.2)] bg-[#030e12] relative overflow-hidden group flex items-center justify-center rounded-sm">
+                <div class="absolute flex flex-col items-center justify-center z-0">
+                    <div class="w-10 h-10 border-2 border-brand-cyan/20 border-t-brand-cyan rounded-full animate-spin mb-4"></div>
+                    <span id="video-modal-title" class="text-brand-cyan font-share tracking-widest text-[10px] md:text-xs uppercase animate-pulse">Connexion au satellite vidéo...</span>
+                </div>
+                <div class="absolute inset-0 scanlines pointer-events-none z-10 opacity-30"></div>
+                <iframe id="youtube-player" class="w-full h-full relative z-20" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen title="Lecteur vidéo YouTube"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODALE AUDIO -->
+    <div id="audio-modal" class="fixed inset-0 z-[1000] bg-black/95 backdrop-blur-xl flex flex-col items-center justify-center opacity-0 pointer-events-none transition-all duration-300 p-4 md:p-8" role="dialog" aria-modal="true" aria-labelledby="audio-modal-title">
+        <div class="w-full max-w-md relative z-40 flex flex-col items-end">
+            <button id="close-audio-btn" onclick="closeAudioModal()" class="mb-4 bg-[#000000] border border-brand-cyan/50 px-4 py-2 text-brand-cyan hover:bg-brand-cyan hover:text-black font-share text-sm uppercase tracking-widest transition-all flex items-center gap-2 shadow-[0_0_15px_rgba(0,234,255,0.2)] focus-visible:bg-brand-cyan focus-visible:text-black" aria-label="Fermer le lecteur audio">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg> <span class="hidden md:inline">FERMER</span>
+            </button>
+            <div class="w-full relative cyber-panel border-l-4 border-brand-cyan p-6 md:p-8 text-center shadow-[0_0_50px_rgba(0,0,0,0.8)] overflow-hidden">
+                <div class="absolute inset-0 z-0 opacity-20" aria-hidden="true">
+                    <img src="sabots_seconde_chance.jpg" alt="" class="w-full h-full object-cover grayscale blur-sm" onerror="this.src='https://images.unsplash.com/photo-1590602847861-f357a9332bbc?q=80&w=400&h=300&fit=crop'">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent"></div>
+                </div>
+                <div class="relative z-10">
+                    <div class="w-20 h-20 mx-auto mb-6 border-2 border-brand-cyan/50 rounded-full flex items-center justify-center animate-[pulse_2s_infinite] bg-brand-cyan/10 overflow-hidden shadow-[0_0_15px_rgba(0,234,255,0.3)]">
+                        <img src="sabots_seconde_chance.jpg" alt="" class="w-full h-full object-cover opacity-80 mix-blend-screen" onerror="this.style.display='none'">
+                    </div>
+                    <div class="inline-block px-3 py-1 mb-2 border border-brand-cyan/30 text-brand-cyan font-share text-[10px] tracking-widest uppercase bg-black/50 backdrop-blur-sm">// MODULE LECTURE ACTIVE</div>
+                    <h3 id="audio-modal-title" class="text-2xl md:text-3xl font-heading font-black text-white uppercase tracking-widest mb-6 leading-tight mt-2 drop-shadow-md">Sabots & <br>Seconde Chance</h3>
+                    <div class="w-full bg-[#000000]/80 p-2 border border-brand-cyan/20 backdrop-blur-sm rounded-sm shadow-inner relative overflow-hidden">
+                        <iframe id="audio-player-yt" class="w-full aspect-video opacity-100 rounded-sm" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen title="Lecteur audio YouTube"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        // ---------------------------------------------------------
+        // 1. GÉNÉRATION DYNAMIQUE DU DOM
+        // ---------------------------------------------------------
+        const generateDOM = () => {
+            const textCyan = `<h2 class="text-lg md:text-2xl font-heading font-black uppercase tracking-[0.2em] text-transparent select-none whitespace-nowrap leading-none" style="-webkit-text-stroke: 1.5px #00EAFF; text-shadow: 0 0 15px rgba(0, 234, 255, 0.5);">Approche<br>Stratégique</h2>`;
+            const textPurple = `<h2 class="text-lg md:text-2xl font-heading font-black uppercase tracking-[0.2em] text-transparent select-none whitespace-nowrap leading-none" style="-webkit-text-stroke: 1.5px #A837D6; text-shadow: 0 0 15px rgba(168, 55, 214, 0.5);">Innovation<br>Digitale</h2>`;
+            
+            const createMarqueeGroup = (content, count) => {
+                let groupHTML = `<div class="flex items-center gap-16 md:gap-24 pr-16 md:pr-24 shrink-0" aria-hidden="true">`;
+                for(let i=0; i<count; i++) groupHTML += content;
+                groupHTML += `</div>`;
+                return groupHTML + groupHTML; 
+            };
+
+            const marqueeCyan = document.getElementById('marquee-cyan');
+            const marqueePurple = document.getElementById('marquee-purple');
+            if (marqueeCyan) marqueeCyan.innerHTML = createMarqueeGroup(textCyan, 15);
+            if (marqueePurple) marqueePurple.innerHTML = createMarqueeGroup(textPurple, 15);
+
+            const socials = [
+                { text: 'E-MAIL', stroke: '#00EAFF', action: 'copyToClipboard("nathansoule33@gmail.com", "E-mail copié !")', icon: '<path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline>' },
+                { text: 'INSTAGRAM', stroke: '#A837D6', url: 'https://www.instagram.com/nathaaansl/', icon: '<rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>' },
+                { text: 'TÉLÉPHONE', stroke: '#00EAFF', action: 'copyToClipboard("+33659075073", "Numéro copié !")', icon: '<path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"></path>' },
+                { text: 'LINKEDIN', stroke: '#A837D6', url: 'https://www.linkedin.com/in/nathan-soulé-82b19b290/', icon: '<path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle>' }
+            ];
+
+            let socialHTML = `<div class="flex items-center gap-8 md:gap-12 pr-8 md:pr-12 shrink-0 h-full">`;
+            socials.forEach(s => {
+                const isCyan = s.stroke === '#00EAFF';
+                const tag = s.url ? `a href="${s.url}" target="_blank" rel="noopener noreferrer"` : `button onclick='${s.action}'`;
+                socialHTML += `
+                    <${tag} class="flex items-center gap-2 hover:scale-105 transition-transform cursor-pointer shrink-0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand-cyan">
+                        <svg class="w-4 h-4 md:w-5 md:h-5 ${isCyan ? 'text-brand-cyan' : 'text-brand-purple'}" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true">${s.icon}</svg>
+                        <span class="text-xs md:text-sm font-heading font-bold uppercase text-transparent" style="-webkit-text-stroke: 0.6px ${s.stroke};">${s.text}</span>
+                    </${tag.split(' ')[0]}>`;
+            });
+            socialHTML += `</div>`;
+            const footerSocials = document.getElementById('footer-social-marquee');
+            if (footerSocials) footerSocials.innerHTML = socialHTML + socialHTML + socialHTML; 
+        };
+        generateDOM();
+
+        // ---------------------------------------------------------
+        // 2. PERFORMANCES (pause hors-écran)
+        // ---------------------------------------------------------
+        const perfObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                entry.target.classList.toggle('pause-animation', !entry.isIntersecting);
+            });
+        }, { rootMargin: '150px' });
+        document.querySelectorAll('.js-pause-target').forEach(el => perfObserver.observe(el));
+
+        // ---------------------------------------------------------
+        // 3. MENU MOBILE, NAVIGATION & RETOUR EN HAUT
+        // ---------------------------------------------------------
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+        const header = document.getElementById('main-header');
+        const backToTopBtn = document.getElementById('back-to-top');
+
+        if(btn) {
+            btn.addEventListener('click', () => {
+                if (menu.classList.contains('menu-open')) {
+                    menu.classList.remove('menu-open');
+                    btn.setAttribute('aria-expanded', 'false');
+                    setTimeout(() => menu.classList.add('hidden'), 400);
+                } else {
+                    menu.classList.remove('hidden');
+                    requestAnimationFrame(() => requestAnimationFrame(() => menu.classList.add('menu-open')));
+                    btn.setAttribute('aria-expanded', 'true');
+                }
+            });
+            menu.querySelectorAll('.mobile-nav-link').forEach(link => {
+                link.addEventListener('click', () => {
+                    menu.classList.remove('menu-open');
+                    btn.setAttribute('aria-expanded', 'false');
+                    setTimeout(() => menu.classList.add('hidden'), 400);
+                });
+            });
+        }
+
+        const scrollProgressBar = document.getElementById('scroll-progress');
+        let ticking = false;
+        window.addEventListener('scroll', () => {
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    if (window.scrollY > 20) { header.classList.add('bg-[#000000]/95'); header.classList.remove('bg-[#000000]/70'); header.style.paddingTop = '0'; header.style.paddingBottom = '0'; } 
+                    else { header.classList.add('bg-[#000000]/70'); header.classList.remove('bg-[#000000]/95'); header.style.paddingTop = ''; header.style.paddingBottom = ''; }
+                    
+                    const scrollTop = window.scrollY;
+                    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                    if (docHeight > 0) scrollProgressBar.style.width = (scrollTop / docHeight * 100) + '%';
+
+                    if (scrollTop > 500) {
+                        backToTopBtn.classList.remove('opacity-0', 'translate-y-10', 'pointer-events-none');
+                        backToTopBtn.classList.add('opacity-100', 'translate-y-0', 'pointer-events-auto');
+                    } else {
+                        backToTopBtn.classList.add('opacity-0', 'translate-y-10', 'pointer-events-none');
+                        backToTopBtn.classList.remove('opacity-100', 'translate-y-0', 'pointer-events-auto');
+                    }
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        }, { passive: true });
+
+        // ---------------------------------------------------------
+        // 4. PRESSE-PAPIER (API moderne + fallback)
+        // ---------------------------------------------------------
+        async function copyToClipboard(text, message) {
+            if (navigator.clipboard && window.isSecureContext) {
+                try { await navigator.clipboard.writeText(text); showToast(message); }
+                catch { fallbackCopyTextToClipboard(text, message); }
+            } else { fallbackCopyTextToClipboard(text, message); }
+        }
+
+        function fallbackCopyTextToClipboard(text, message) {
+            const textArea = document.createElement("textarea");
+            textArea.value = text;
+            textArea.style.position = "fixed"; textArea.style.left = "-9999px";
+            document.body.appendChild(textArea);
+            textArea.select();
+            try { document.execCommand('copy'); showToast(message); }
+            catch (err) { console.error('Erreur copie', err); }
+            document.body.removeChild(textArea);
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('cyber-toast');
+            document.getElementById('cyber-toast-message').innerText = message;
+            toast.classList.remove('translate-y-[150%]', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+            setTimeout(() => {
+                toast.classList.remove('translate-y-0', 'opacity-100');
+                toast.classList.add('translate-y-[150%]', 'opacity-0');
+            }, 3000);
+        }
+
+        // ---------------------------------------------------------
+        // 5. SCROLL PROJETS (Drag & Drop)
+        // ---------------------------------------------------------
+        const projContainer = document.getElementById('projects-container');
+        const projProgress = document.getElementById('projects-progress');
+        const projTrack = document.getElementById('projects-track');
+
+        if (projContainer && projProgress && projTrack) {
+            let isDraggingProgress = false, startX, startScrollLeft;
+            let cachedMaxScroll = 0, cachedWorkableWidth = 0, isUpdatingProgress = false;
+
+            const updateScrollProgress = () => {
+                if (isUpdatingProgress) return;
+                isUpdatingProgress = true;
+                window.requestAnimationFrame(() => {
+                    const maxScroll = projContainer.scrollWidth - projContainer.clientWidth;
+                    if (maxScroll > 0) {
+                        const percentage = projContainer.scrollLeft / maxScroll;
+                        const workableWidth = projTrack.offsetWidth - projProgress.offsetWidth;
+                        projProgress.style.transform = `translate3d(${percentage * workableWidth}px, 0, 0)`;
+                    }
+                    isUpdatingProgress = false;
+                });
+            };
+
+            projContainer.addEventListener('scroll', updateScrollProgress, { passive: true });
+            let resizeTimer;
+            window.addEventListener('resize', () => { clearTimeout(resizeTimer); resizeTimer = setTimeout(updateScrollProgress, 100); }, { passive: true });
+
+            const startProgressDrag = (e) => {
+                isDraggingProgress = true;
+                projContainer.style.scrollBehavior = 'auto';
+                startX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+                startScrollLeft = projContainer.scrollLeft;
+                cachedMaxScroll = projContainer.scrollWidth - projContainer.clientWidth;
+                cachedWorkableWidth = projTrack.offsetWidth - projProgress.offsetWidth;
+                projProgress.classList.replace('cursor-grab', 'cursor-grabbing');
+                if(e.type === "mousedown") e.preventDefault(); 
+            };
+
+            const doProgressDrag = (e) => {
+                if (!isDraggingProgress) return;
+                if(e.cancelable) e.preventDefault(); 
+                const currentX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+                if (cachedWorkableWidth > 0) {
+                    projContainer.scrollLeft = startScrollLeft + ((currentX - startX) / cachedWorkableWidth) * cachedMaxScroll;
+                }
+            };
+
+            const stopProgressDrag = () => {
+                if (!isDraggingProgress) return;
+                isDraggingProgress = false;
+                projContainer.style.scrollBehavior = '';
+                projProgress.classList.replace('cursor-grabbing', 'cursor-grab');
+            };
+
+            projProgress.addEventListener('mousedown', startProgressDrag);
+            window.addEventListener('mousemove', doProgressDrag);
+            window.addEventListener('mouseup', stopProgressDrag);
+            projProgress.addEventListener('touchstart', startProgressDrag, { passive: false });
+            window.addEventListener('touchmove', doProgressDrag, { passive: false });
+            window.addEventListener('touchend', stopProgressDrag);
+
+            document.getElementById('scroll-left-btn').addEventListener('click', () => {
+                projContainer.scrollBy({ left: -(projContainer.querySelector('.cyber-panel').offsetWidth + 32), behavior: 'smooth' });
+            });
+            document.getElementById('scroll-right-btn').addEventListener('click', () => {
+                projContainer.scrollBy({ left: (projContainer.querySelector('.cyber-panel').offsetWidth + 32), behavior: 'smooth' });
+            });
+        }
+
+        // ---------------------------------------------------------
+        // 6. MODALES (Vidéo & Audio) + Focus Trap + iOS Scroll Lock
+        // ---------------------------------------------------------
+        let savedScrollY = 0;
+        function getScrollbarWidth() { return window.innerWidth - document.documentElement.clientWidth; }
+
+        function lockBodyScroll() {
+            savedScrollY = window.scrollY;
+            document.body.style.paddingRight = `${getScrollbarWidth()}px`;
+            document.body.style.position = 'fixed';
+            document.body.style.top = `-${savedScrollY}px`;
+            document.body.style.left = '0';
+            document.body.style.right = '0';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function unlockBodyScroll() {
+            document.documentElement.style.setProperty('scroll-behavior', 'auto', 'important');
+            document.body.style.position = '';
+            document.body.style.top = '';
+            document.body.style.left = '';
+            document.body.style.right = '';
+            document.body.style.overflow = '';
+            document.body.style.paddingRight = '';
+            window.scrollTo(0, savedScrollY);
+            setTimeout(() => {
+                document.documentElement.style.removeProperty('scroll-behavior');
+            }, 10);
+        }
+
+        function openVideoModal(videoId) {
+            const modal = document.getElementById('video-modal');
+            document.getElementById('youtube-player').src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&color=white`;
+            lockBodyScroll();
+            modal.classList.replace('opacity-0', 'opacity-100');
+            modal.classList.replace('pointer-events-none', 'pointer-events-auto');
+            setTimeout(() => document.getElementById('close-video-btn').focus(), 100);
+        }
+
+        function closeVideoModal() {
+            const modal = document.getElementById('video-modal');
+            modal.classList.replace('opacity-100', 'opacity-0');
+            modal.classList.replace('pointer-events-auto', 'pointer-events-none');
+            setTimeout(() => {
+                document.getElementById('youtube-player').src = ''; 
+                unlockBodyScroll();
+            }, 300);
+        }
+
+        function openAudioModal(youtubeId) {
+            const modal = document.getElementById('audio-modal');
+            document.getElementById('audio-player-yt').src = `https://www.youtube.com/embed/${youtubeId}?autoplay=1&rel=0&color=white`;
+            lockBodyScroll();
+            modal.classList.replace('opacity-0', 'opacity-100');
+            modal.classList.replace('pointer-events-none', 'pointer-events-auto');
+            setTimeout(() => document.getElementById('close-audio-btn').focus(), 100);
+        }
+
+        function closeAudioModal() {
+            const modal = document.getElementById('audio-modal');
+            modal.classList.replace('opacity-100', 'opacity-0');
+            modal.classList.replace('pointer-events-auto', 'pointer-events-none');
+            setTimeout(() => {
+                document.getElementById('audio-player-yt').src = '';
+                unlockBodyScroll();
+            }, 300);
+        }
+
+        // Fermeture via clic externe / Escape + focus trap
+        document.getElementById('video-modal').addEventListener('click', function(e) { if (e.target === this) closeVideoModal(); });
+        document.getElementById('audio-modal').addEventListener('click', function(e) { if (e.target === this) closeAudioModal(); });
+        
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                if (!document.getElementById('video-modal').classList.contains('pointer-events-none')) closeVideoModal();
+                if (!document.getElementById('audio-modal').classList.contains('pointer-events-none')) closeAudioModal();
+            }
+            // Basic focus trap: keep Tab inside open modal
+            if (e.key === 'Tab') {
+                const videoModal = document.getElementById('video-modal');
+                const audioModal = document.getElementById('audio-modal');
+                const activeModal = !videoModal.classList.contains('pointer-events-none') ? videoModal : 
+                                    !audioModal.classList.contains('pointer-events-none') ? audioModal : null;
+                if (activeModal) {
+                    const focusable = activeModal.querySelectorAll('button, [href], iframe, [tabindex]:not([tabindex="-1"])');
+                    if (focusable.length) {
+                        const first = focusable[0], last = focusable[focusable.length - 1];
+                        if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+                        else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+                    }
+                }
+            }
+        });
+
+        // ---------------------------------------------------------
+        // 7. FORMULAIRE CONTACT
+        // ---------------------------------------------------------
+        function sendEmail(e) {
+            e.preventDefault();
+            const btn = e.target.querySelector('button[type="submit"]');
+            const originalText = btn.innerHTML;
+            const progressBar = document.getElementById('form-progress-bar');
+            const progressFill = document.getElementById('form-progress-fill');
+            
+            progressBar.style.height = '2px';
+            progressFill.style.width = '0%';
+            btn.innerHTML = '<span class="relative z-10 flex items-center gap-3 font-share">> TRANSMISSION EN COURS...</span>'; 
+            btn.disabled = true; btn.classList.add('opacity-70');
+
+            let progress = 0;
+            const progressInterval = setInterval(() => {
+                progress = Math.min(progress + Math.random() * 15, 85);
+                progressFill.style.width = progress + '%';
+            }, 200);
+
+            fetch("https://formspree.io/f/mgopydyv", {
+                method: "POST", headers: { "Content-Type": "application/json", "Accept": "application/json" },
+                body: JSON.stringify({ email: document.getElementById('email').value, subject: document.getElementById('objet').value, message: document.getElementById('message').value })
+            }).then(r => {
+                clearInterval(progressInterval);
+                progressFill.style.width = '100%';
+                if (r.ok) { 
+                    btn.innerHTML = '<span class="relative z-10 flex items-center gap-3 font-share text-green-400">> DONNÉES TRANSMISES ✓</span>';
+                    showToast("Données transmises avec succès !"); 
+                    setTimeout(() => e.target.reset(), 1500);
+                } else {
+                    btn.innerHTML = '<span class="relative z-10 flex items-center gap-3 font-share text-red-400">> ERREUR DE TRANSMISSION</span>';
+                    showToast("Erreur lors de l'envoi.");
+                }
+            }).catch(() => {
+                clearInterval(progressInterval);
+                btn.innerHTML = '<span class="relative z-10 flex items-center gap-3 font-share text-red-400">> ÉCHEC CONNEXION</span>';
+                showToast("Échec de connexion.");
+            }).finally(() => {
+                setTimeout(() => {
+                    btn.innerHTML = originalText; btn.disabled = false; btn.classList.remove('opacity-70');
+                    progressBar.style.height = '0'; progressFill.style.width = '0%';
+                }, 2500);
+            });
+        }
+
+        // ---------------------------------------------------------
+        // 8. THREE.JS (ICÔNE INFINI)
+        // ---------------------------------------------------------
+        function createInfinity(containerId, customScale, cameraZ) {
+            const container = document.getElementById(containerId);
+            if (!container || typeof THREE === 'undefined' || container.hasChildNodes()) return;
+
+            let isVisible = false, frameId = null, time = 0; 
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => { 
+                    isVisible = entry.isIntersecting; 
+                    if (isVisible && !frameId) animate();
+                    else if (!isVisible && frameId) { cancelAnimationFrame(frameId); frameId = null; }
+                });
+            }, { rootMargin: "100px" });
+            observer.observe(container);
+
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(40, container.clientWidth / container.clientHeight, 0.1, 100);
+            camera.position.z = cameraZ;
+
+            const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+            renderer.setSize(container.clientWidth, container.clientHeight);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            container.appendChild(renderer.domElement);
+
+            class InfinityCurve extends THREE.Curve {
+                constructor(scale) { super(); this.scale = scale; }
+                getPoint(t, target = new THREE.Vector3()) {
+                    const a = 2 * Math.PI * t, s = this.scale, d = 1 + Math.pow(Math.sin(a), 2);
+                    return target.set((s * Math.cos(a)) / d, (s * Math.sin(a) * Math.cos(a)) / d, 0);
+                }
+            }
+
+            const path = new InfinityCurve(customScale);
+            const geometry = new THREE.TubeGeometry(path, 64, 0.07 * (customScale/1.5), 8, true);
+            const material = new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 1.0, side: THREE.DoubleSide });
+            const tube = new THREE.Mesh(geometry, material);
+
+            const wireGeo = new THREE.TubeGeometry(path, 64, 0.08 * (customScale/1.5), 8, true);
+            const wireMat = new THREE.MeshBasicMaterial({ color: 0x00EAFF, wireframe: true, transparent: true, opacity: 0.5, blending: THREE.AdditiveBlending });
+            const wireframe = new THREE.Mesh(wireGeo, wireMat);
+
+            const auraGeo1 = new THREE.TubeGeometry(path, 64, 0.12 * (customScale/1.5), 8, true);
+            const auraMat1 = new THREE.MeshBasicMaterial({ color: 0x00EAFF, transparent: true, opacity: 0.6, blending: THREE.AdditiveBlending, side: THREE.DoubleSide });
+            const aura1 = new THREE.Mesh(auraGeo1, auraMat1);
+
+            const auraGeo2 = new THREE.TubeGeometry(path, 64, 0.22 * (customScale/1.5), 8, true);
+            const auraMat2 = new THREE.MeshBasicMaterial({ color: 0x00EAFF, transparent: true, opacity: 0.25, blending: THREE.AdditiveBlending, side: THREE.DoubleSide });
+            const aura2 = new THREE.Mesh(auraGeo2, auraMat2);
+
+            const group = new THREE.Group();
+            group.add(tube);
+            group.add(wireframe);
+            group.add(aura1);
+            group.add(aura2);
+            scene.add(group);
+
+            function animate() {
+                if (!isVisible) return; 
+                frameId = requestAnimationFrame(animate);
+                time += 0.02; group.rotation.y += 0.007; group.position.y = Math.sin(time) * 0.1;
+                renderer.render(scene, camera);
+            }
+        }
+
+        window.addEventListener('preloaderHidden', () => {
+            createInfinity('infinity-canvas-left', 1.5, 4); 
+            createInfinity('infinity-canvas-right', 1.5, 4); 
+        });
+
+        // ---------------------------------------------------------
+        // 9. REVEAL AU SCROLL
+        // ---------------------------------------------------------
+        window.addEventListener('DOMContentLoaded', () => {
+            const revealElements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale');
+            if (revealElements.length > 0) {
+                const scrollObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('active');
+                            scrollObserver.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.15 });
+                revealElements.forEach(el => scrollObserver.observe(el));
+            }
+        });
+
+        // ---------------------------------------------------------
+        // 10. CUSTOM CURSOR NÉON
+        // ---------------------------------------------------------
+        (() => {
+            const dot = document.getElementById('cursor-dot');
+            const halo = document.getElementById('cursor-halo');
+            if (!dot || !halo) return;
+            let mouseX = 0, mouseY = 0, haloX = 0, haloY = 0;
+
+            document.addEventListener('mousemove', e => { mouseX = e.clientX; mouseY = e.clientY; });
+            document.addEventListener('mousedown', () => document.body.classList.add('cursor-click'));
+            document.addEventListener('mouseup', () => document.body.classList.remove('cursor-click'));
+
+            const hoverTargets = 'a, button, input, textarea, [role="button"], .cursor-pointer, .card-tilt';
+            document.addEventListener('mouseover', e => {
+                if (e.target.closest(hoverTargets)) document.body.classList.add('cursor-hover');
+            });
+            document.addEventListener('mouseout', e => {
+                if (e.target.closest(hoverTargets)) document.body.classList.remove('cursor-hover');
+            });
+
+            function animateCursor() {
+                dot.style.left = mouseX + 'px'; dot.style.top = mouseY + 'px';
+                haloX += (mouseX - haloX) * 0.12; haloY += (mouseY - haloY) * 0.12;
+                halo.style.left = haloX + 'px'; halo.style.top = haloY + 'px';
+                requestAnimationFrame(animateCursor);
+            }
+            animateCursor();
+        })();
+
+        // ---------------------------------------------------------
+        // 11. CARD 3D TILT + HOLOGRAPHIC SHINE
+        // ---------------------------------------------------------
+        document.querySelectorAll('.card-tilt').forEach(card => {
+            card.addEventListener('mousemove', e => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left, y = e.clientY - rect.top;
+                const centerX = rect.width / 2, centerY = rect.height / 2;
+                const rotateX = ((y - centerY) / centerY) * -6;
+                const rotateY = ((x - centerX) / centerX) * 6;
+                card.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
+                const shine = card.querySelector('.card-shine');
+                if (shine) { shine.style.setProperty('--shine-x', (x / rect.width * 100) + '%'); shine.style.setProperty('--shine-y', (y / rect.height * 100) + '%'); }
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'perspective(800px) rotateX(0) rotateY(0) scale(1)';
+            });
+        });
+
+        // ---------------------------------------------------------
+        // 12. TYPEWRITER EFFECT
+        // ---------------------------------------------------------
+        (() => {
+            const el = document.getElementById('hero-typewriter');
+            if (!el) return;
+            const text = el.dataset.text;
+            const cursor = el.querySelector('.typewriter-cursor');
+            let typed = false;
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting && !typed) {
+                        typed = true; let i = 0;
+                        const span = document.createElement('span');
+                        el.insertBefore(span, cursor);
+                        function typeChar() {
+                            if (i < text.length) {
+                                span.textContent += text[i]; i++;
+                                setTimeout(typeChar, 18 + Math.random() * 25);
+                            }
+                        }
+                        setTimeout(typeChar, 600);
+                        observer.disconnect();
+                    }
+                });
+            }, { threshold: 0.3 });
+            observer.observe(el);
+        })();
+
+        // ---------------------------------------------------------
+        // 13. ACTIVE NAV SECTION DETECTION
+        // ---------------------------------------------------------
+        (() => {
+            const sections = document.querySelectorAll('main[id], section[id]');
+            const navLinks = document.querySelectorAll('.nav-link');
+            if (!sections.length || !navLinks.length) return;
+
+            const navObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const id = entry.target.id;
+                        navLinks.forEach(link => {
+                            const href = link.getAttribute('href');
+                            if (href === '#' + id) link.classList.add('nav-active');
+                            else link.classList.remove('nav-active');
+                        });
+                    }
+                });
+            }, { rootMargin: '-50% 0px -50% 0px' });
+            sections.forEach(s => navObserver.observe(s));
+        })();
+
+        // ---------------------------------------------------------
+        // 14. PANEL GLOW TRACKING
+        // ---------------------------------------------------------
+        document.querySelectorAll('.cyber-panel').forEach(panel => {
+            if (panel.closest('#projects-container')) return;
+            const glow = document.createElement('div');
+            glow.classList.add('panel-glow');
+            panel.style.position = 'relative';
+            panel.insertBefore(glow, panel.firstChild);
+            panel.addEventListener('mousemove', e => {
+                const rect = panel.getBoundingClientRect();
+                glow.style.setProperty('--glow-x', (e.clientX - rect.left) + 'px');
+                glow.style.setProperty('--glow-y', (e.clientY - rect.top) + 'px');
+            });
+        });
+    </script>
+</body>
+</html>

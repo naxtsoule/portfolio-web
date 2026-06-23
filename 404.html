@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Erreur 404 - Page Introuvable</title>
+    
+    <!-- ======================================================= -->
+    <!-- BANNIÈRE DE FENÊTRE (Icône d'onglet et image de partage) -->
+    <!-- ======================================================= -->
+    <!-- 1. Icône dans l'onglet du navigateur (Favicon) -->
+    <link rel="icon" type="image/jpeg" href="favicon.jpg">
+    
+    <!-- 2. Bannière de partage pour les réseaux sociaux (LinkedIn, Discord, etc.) -->
+    <meta property="og:image" content="banniere-de-partage.jpg">
+    <meta name="twitter:image" content="banniere-de-partage.jpg">
+    <!-- ======================================================= -->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&family=Orbitron:wght@400;500;600;700;800;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            cyan: '#00EAFF',
+                            purple: '#A837D6',
+                            dark: '#072B37',
+                            bg: '#000000',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Rajdhani', 'sans-serif'],
+                        heading: ['Orbitron', 'sans-serif'],
+                        share: ['"Share Tech Mono"', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        body {
+            background-color: #000000;
+            overflow-x: hidden;
+            margin: 0;
+            padding: 0;
+            color: #E5E7EB;
+        }
+        
+        .bg-opti {
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            -webkit-transform: translate3d(0, 0, 0);
+            transform: translate3d(0, 0, 0);
+            will-change: transform;
+        }
+
+        .scanlines {
+            background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0) 50%, rgba(0,234,255,0.02) 50%, rgba(0,234,255,0.02));
+            background-size: 100% 4px;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .nav-link { position: relative; display: inline-block; transition: all 0.3s ease; padding: 0 4px; }
+        .nav-link::before { content: '['; position: absolute; left: 10px; opacity: 0; color: #00EAFF; font-family: 'Share Tech Mono', monospace; font-weight: bold; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        .nav-link::after { content: ']'; position: absolute; right: 10px; opacity: 0; color: #00EAFF; font-family: 'Share Tech Mono', monospace; font-weight: bold; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        .nav-link:hover::before { left: -15px; opacity: 1; }
+        .nav-link:hover::after { right: -15px; opacity: 1; }
+        .nav-link:hover { color: #00EAFF !important; text-shadow: 0 0 10px rgba(0, 234, 255, 0.6); }
+
+        @keyframes plasmaMorph1 { 0%, 100% { border-radius: 40% 60% 60% 40% / 60% 30% 70% 40%; transform: translate(0, 0) rotate(0deg) scale(1); } 50% { border-radius: 60% 40% 30% 70% / 40% 60% 40% 60%; transform: translate(4%, 4%) rotate(180deg) scale(1.05); } }
+        @keyframes plasmaMorph2 { 0%, 100% { border-radius: 60% 40% 30% 70% / 40% 60% 40% 60%; transform: translate(0, 0) rotate(0deg) scale(1); } 50% { border-radius: 40% 60% 60% 40% / 60% 30% 70% 40%; transform: translate(-4%, -4%) rotate(-180deg) scale(1.05); } }
+        .animate-plasma-1 { animation: plasmaMorph1 30s ease-in-out infinite; will-change: transform, border-radius; }
+        .animate-plasma-2 { animation: plasmaMorph2 35s ease-in-out infinite; will-change: transform, border-radius; }
+
+        @keyframes neonGlitch {
+            0%, 40% { opacity: 1; }
+            40.1%, 42% { opacity: 0.1; }
+            42.1%, 44% { opacity: 1; }
+            44.1%, 45% { opacity: 0.4; }
+            45.1%, 80% { opacity: 1; }
+            80.1%, 82.5% { opacity: 0.1; }
+            82.6%, 84% { opacity: 1; }
+            84.1%, 86% { opacity: 0.3; }
+            86.1%, 100% { opacity: 1; }
+        }
+        .neon-glitch { animation: neonGlitch 8s infinite; }
+    </style>
+</head>
+<body class="font-sans antialiased relative">
+
+    <!-- ARRIÈRE-PLAN CYBERPUNK -->
+    <div class="fixed inset-0 z-[-2] bg-[#000000] bg-opti"></div>
+    <div class="fixed inset-0 scanlines bg-opti"></div> 
+    <div class="fixed inset-0 z-[-1] overflow-hidden pointer-events-none">
+        <div class="absolute inset-0 bg-brand-dark/5 blur-[120px]"></div>
+        <div class="absolute top-[-5%] left-[-10%] w-[50vw] h-[50vw] bg-brand-purple/40 blur-[140px] animate-plasma-1"></div>
+        <div class="absolute bottom-[-10%] right-[-10%] w-[45vw] h-[45vw] bg-brand-cyan/35 blur-[130px] animate-plasma-2"></div>
+    </div>
+
+    <!-- HEADER (Modifié avec les liens vers index.html) -->
+    <header id="main-header" class="fixed w-full top-0 z-50 bg-[#000000]/70 backdrop-blur-xl border-b border-brand-cyan/20 shadow-sm transition-all duration-300 py-2">
+        <div class="w-full px-6 md:px-8 lg:px-12 flex justify-between items-center">
+            <a href="index.html" class="flex items-center group relative z-10">
+                <img src="logo.png" alt="Logo Nathan Soulé" class="h-[75px] w-auto group-hover:scale-105 transition-transform duration-300" onerror="this.src='https://placehold.co/200x80/000000/00EAFF?text=LOGO&font=Orbitron'">
+            </a>
+            
+            <nav class="hidden md:flex items-center space-x-14">
+                <a href="index.html#realisations" class="nav-link text-sm font-share tracking-widest uppercase text-gray-300">Réalisations</a>
+                <a href="index.html#a-propos" class="nav-link text-sm font-share tracking-widest uppercase text-gray-300">À propos de moi</a>
+                <a href="index.html#cv" class="nav-link text-sm font-share tracking-widest uppercase text-gray-300">CV</a>
+                <a href="index.html#services" class="nav-link text-sm font-share tracking-widest uppercase text-gray-300">Services</a>
+                <a href="index.html#contact" class="border border-brand-cyan text-brand-cyan px-6 py-2.5 text-sm font-share tracking-widest uppercase hover:bg-brand-cyan/10 transition-all shadow-[0_0_15px_rgba(0,234,255,0.15)]">Me Contacter</a>
+            </nav>
+            <button id="mobile-menu-btn" class="md:hidden text-brand-cyan" aria-label="Menu">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+            </button>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-[#000000]/95 backdrop-blur-xl border-t border-brand-cyan/20 absolute w-full shadow-2xl">
+            <div class="px-4 pt-2 pb-6 space-y-2">
+                <a href="index.html#realisations" class="block px-3 py-2 font-share text-gray-300 tracking-widest uppercase hover:text-brand-cyan">Réalisations</a>
+                <a href="index.html#a-propos" class="block px-3 py-2 font-share text-gray-300 tracking-widest uppercase hover:text-brand-cyan">À propos de moi</a>
+                <a href="index.html#cv" class="block px-3 py-2 font-share text-gray-300 tracking-widest uppercase hover:text-brand-cyan">CV</a>
+                <a href="index.html#services" class="block px-3 py-2 font-share text-gray-300 tracking-widest uppercase hover:text-brand-cyan">Services</a>
+                <a href="index.html#contact" class="block px-3 py-2 bg-brand-cyan/10 border border-brand-cyan text-brand-cyan font-share text-center tracking-widest uppercase mt-4">Me Contacter</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN 404 CONTENT -->
+    <main class="relative min-h-screen flex flex-col items-center justify-center z-10 px-6 pt-24 text-center">
+        
+        <h1 class="text-2xl md:text-4xl lg:text-5xl font-heading font-black text-white uppercase tracking-widest leading-tight mb-4">
+            Erreur <br>
+            <!-- Effet Neon Glitch réduit proportionnellement -->
+            <span class="text-transparent neon-glitch inline-block pb-2 mt-1 text-5xl md:text-7xl" style="-webkit-text-stroke: 1.5px #00EAFF; text-shadow: 0 0 20px rgba(0, 234, 255, 0.4);">404</span>
+        </h1>
+        
+        <p class="text-gray-400 text-sm md:text-base leading-relaxed mb-8 max-w-md mx-auto">
+            Les données que vous cherchez semblent avoir été effacées ou corrompues. Cette zone de la matrice n'existe pas ou n'est plus accessible.
+        </p>
+        
+        <!-- Bouton de retour -->
+        <a href="index.html" class="inline-flex items-center justify-center gap-3 px-6 py-3 bg-brand-cyan/10 border border-brand-cyan text-brand-cyan font-share text-xs md:text-sm tracking-widest uppercase hover:bg-brand-cyan hover:text-[#000000] hover:shadow-[0_0_20px_rgba(0,234,255,0.6)] transition-all group">
+            <svg class="w-4 h-4 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+            RETOUR AU SYSTÈME
+        </a>
+
+    </main>
+
+    <!-- SCRIPT POUR LE MENU MOBILE -->
+    <script>
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+        const header = document.getElementById('main-header');
+
+        if(btn) {
+            btn.addEventListener('click', () => { menu.classList.toggle('hidden'); });
+        }
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 20) { 
+                header.classList.add('bg-[#000000]/95'); 
+                header.classList.remove('bg-[#000000]/70'); 
+            } else { 
+                header.classList.add('bg-[#000000]/70'); 
+                header.classList.remove('bg-[#000000]/95'); 
+            }
+        });
+    </script>
+</body>
+</html>
